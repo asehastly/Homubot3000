@@ -1,0 +1,14 @@
+{
+  "name": "homubot3000",
+  "version": "1.0.0",
+  "description": "Homubot3000, something something something homu. you get the idea...",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "asehastly",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.5.1"
+  }
+}
