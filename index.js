@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-const token = require('./node_modules/something/config');
+const {token} = require('./config.json');
 
 const secret = 'ZV8mJDUuFh6E6yUchOrKRSw_-lDjNg1y';
 
@@ -75,4 +75,4 @@ bot.on('message', contri =>{
     }
 })
 
-bot.login('NjM0NTcxMzA2MDI0ODI4OTI5.XanXuw.cQZjmW-YSysn35HWDcdMrJUNe8g');
+bot.login(token);
