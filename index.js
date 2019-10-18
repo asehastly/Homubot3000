@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
+const token = require('./node_modules/something/config');
 
 const secret = 'ZV8mJDUuFh6E6yUchOrKRSw_-lDjNg1y';
 
@@ -71,3 +72,4 @@ bot.on('message', contri =>{
     }
 })
 
+bot.login(token);
