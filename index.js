@@ -3,6 +3,8 @@ const bot = new Discord.Client();
 
 const token = 'NjM0NTcxMzA2MDI0ODI4OTI5.XakfaA.bRfctnIjSNETupryHsC_DleZVPs';
 
+const secret = 'ZV8mJDUuFh6E6yUchOrKRSw_-lDjNg1y';
+
 const PREFIX = "h!";
 
 bot.on('ready', () =>{
@@ -71,4 +73,4 @@ bot.on('message', contri =>{
     }
 })
 
-bot.login(token);
+bot.login(secret);
