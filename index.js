@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-
 const token = 'NjM0NTcxMzA2MDI0ODI4OTI5.XakfaA.bRfctnIjSNETupryHsC_DleZVPs';
 
 const PREFIX = "h!";
