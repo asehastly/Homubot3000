@@ -82,7 +82,7 @@ bot.on('message', contri =>{
 bot.on('message', BOSS =>{
     let args = BOSS.content.substring(PREFIX.length).split(" ");
     switch(args[0]){
-        case 'nboss':
+        case 'setboss':
             if(!args[1]) return BOSS.reply('Who do you wish to fight?\nType NextBoss <Boss Name> <Level>')
             if(!args[2]) return BOSS.reply('I need a level\nType NextBoss <Boss Name> <Level>')
             switch(args[1]){
