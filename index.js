@@ -87,7 +87,7 @@ bot.on('message', BOSS =>{
             if(!args[2]) return BOSS.reply('I need a level\nType NextBoss <Boss Name> <Level>')
             switch(args[1]){
                 case 'bushi':
-                     //BOSS.delete();
+                    BOSS.delete();
                     const BossImg = new Discord.Attachment('./images/BOSS/Bushi.png')
                     const BossEMB = new Discord.RichEmbed()
 
@@ -95,14 +95,41 @@ bot.on('message', BOSS =>{
                     .setAuthor('Boss Invasion Alert','https://i.imgur.com/QrJKwNl.png',' ')
                     .setThumbnail('https://i.imgur.com/JzDnCGJ.png')
                     .addField('Boss Invasion setup complete',`**Bushi**\nLevel ${args[2]}`)
-                    .addField('Chellenge Begins in 18:00 +8 GMT',"5:00 PM Jakarta | 6:00 PM Manila\n7:00 PM Tokyo 9:00 PM Melbourne")
+                    .addField('Chellenge Begins in 18:00 +8 GMT',"5:00 PM Jakarta | 6:00 PM Manila\n7:00 PM Tokyo | 9:00 PM Melbourne")
                     .setImage('https://i.imgur.com/tzxM9XE.png')
 
 
                     BOSS.channel.sendEmbed(BossEMB);
                 break;
                 case 'ganesha':
-
+                    BOSS.delete();
+                    const BossImg = new Discord.Attachment('./images/BOSS/Bushi.png')
+                    const BossEMB = new Discord.RichEmbed()
+    
+                    .setColor(0x2c2f33)
+                    .setAuthor('Boss Invasion Alert','https://i.imgur.com/QrJKwNl.png',' ')
+                    .setThumbnail('https://i.imgur.com/JzDnCGJ.png')
+                    .addField('Boss Invasion setup complete',`**Ganesha**\nLevel ${args[2]}`)
+                    .addField('Chellenge Begins in 18:00 +8 GMT',"5:00 PM Jakarta | 6:00 PM Manila\n7:00 PM Tokyo | 9:00 PM Melbourne")
+                    .setImage('https://i.imgur.com/zDyGxFb.png')
+    
+    
+                    BOSS.channel.sendEmbed(BossEMB);
+                break;
+                case 'emperor':
+                    BOSS.delete();
+                    const BossImg = new Discord.Attachment('./images/BOSS/Bushi.png')
+                    const BossEMB = new Discord.RichEmbed()
+    
+                    .setColor(0x2c2f33)
+                    .setAuthor('Boss Invasion Alert','https://i.imgur.com/QrJKwNl.png',' ')
+                    .setThumbnail('https://i.imgur.com/JzDnCGJ.png')
+                    .addField('Boss Invasion setup complete',`**Emperor**\nLevel ${args[2]}`)
+                    .addField('Chellenge Begins in 18:00 +8 GMT',"5:00 PM Jakarta | 6:00 PM Manila\n7:00 PM Tokyo | 9:00 PM Melbourne")
+                    .setImage('https://i.imgur.com/cRA80kv.png')
+    
+    
+                    BOSS.channel.sendEmbed(BossEMB);
                 break;
                 default:
                     BOSS.channel.sendMessage(`${args[1]} is not on the boss list.`);
