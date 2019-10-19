@@ -57,7 +57,7 @@ bot.on('message', msg=>{
 
 bot.on('message', contri =>{
     let args = contri.content.substring(PREFIX.length).split(" ");
-
+//Tag for #Contribution
     switch(args[0]){
         case 'con':
             contri.delete();
@@ -75,6 +75,26 @@ bot.on('message', contri =>{
             contri.channel.send(img1)
             
             //contri.channel.sendEmbed(chart);
+        break;
+    }
+})
+//Tag for Boss Invasion
+bot.on('message', BOSS =>{
+    switch(args[0]){
+        case 'NextBoss':
+            if(!args[1]) return msg.reply('Who do you wish to fight?\nType NextBoss <Boss Name> <Level>')
+            if(!args[2]) return msg.reply(`I need a level ${member}\nType NextBoss <Boss Name> <Level>`)
+            switch(args[1]){
+                case 'Bushi':
+                    BOSS.delete();
+                    const BossImg = new Discord.Attachment('./images/BOSS/Bushi.png')
+                    const BossEMB = new Discord.RichEmbed()
+
+                    .addField('**Yae Sakura**',`Level `[2])
+
+                    BOSS.channel.sendEmbed(BossEMB)
+                break;
+            }
         break;
     }
 })
