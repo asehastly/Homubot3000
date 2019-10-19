@@ -94,12 +94,15 @@ bot.on('message', BOSS =>{
                     .setColor(0x2c2f33)
                     .setAuthor('Boss Invasion Alert','https://i.imgur.com/QrJKwNl.png',' ')
                     .setThumbnail('https://i.imgur.com/JzDnCGJ.png')
-                    .addField('**Bushi**',`Level ${args[2]}`)
-                    .addField('Chellenge Begins in 18:00 +8 GMT',"Some schedule")
-                    .setImage(BossImg)
+                    .addField('Boss Invasion setup complete',`**Bushi**\nLevel ${args[2]}`)
+                    .addField('Chellenge Begins in 18:00 +8 GMT',"5:00 PM Jakarta | 6:00 PM Manila\n7:00 PM Tokyo 9:00 PM Melbourne")
+                    .setImage('https://i.imgur.com/tzxM9XE.png')
 
 
                     BOSS.channel.sendEmbed(BossEMB);
+                break;
+                case 'ganesha':
+
                 break;
                 default:
                     BOSS.channel.sendMessage(`${args[1]} is not on the boss list.`);
