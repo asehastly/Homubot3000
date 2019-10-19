@@ -86,16 +86,16 @@ bot.on('message', BOSS =>{
             if(!args[1]) return BOSS.reply('Who do you wish to fight?\nType NextBoss <Boss Name> <Level>')
             if(!args[2]) return BOSS.reply('I need a level\nType NextBoss <Boss Name> <Level>')
             if(args[1] === 'bushi'){
-                BOSS.delete();
+                //BOSS.delete();
                 const BossImg = new Discord.Attachment('./images/BOSS/Bushi.png')
                 const BossEMB = new Discord.RichEmbed()
 
-                .addField('**Bushi**',[2])
+                .addField('**Bushi**',`Level ${args[2]}`)
 
                 BOSS.channel.sendEmbed(BossEMB);
             }
             else{
-                BOSS.channel.sendMessage('There is no such thing as '[1]);
+                BOSS.channel.sendMessage(`There is no such thing as ${args[1]}`);
             }
         break;
     }
