@@ -80,10 +80,11 @@ bot.on('message', contri =>{
 })
 //Tag for Boss Invasion
 bot.on('message', BOSS =>{
+    let args = BOSS.content.substring(PREFIX.length).split(" ");
     switch(args[0]){
-        case 'NextBoss':
-            if(!args[1]) return msg.reply('Who do you wish to fight?\nType NextBoss <Boss Name> <Level>')
-            if(!args[2]) return msg.reply(`I need a level ${member}\nType NextBoss <Boss Name> <Level>`)
+        case 'nboss':
+            if(!args[1]) return BOSS.reply('Who do you wish to fight?\nType NextBoss <Boss Name> <Level>')
+            if(!args[2]) return BOSS.reply(`I need a level ${member.author} \nType NextBoss <Boss Name> <Level>`)
             switch(args[1]){
                 case 'Bushi':
                     BOSS.delete();
