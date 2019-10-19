@@ -85,17 +85,24 @@ bot.on('message', BOSS =>{
         case 'nboss':
             if(!args[1]) return BOSS.reply('Who do you wish to fight?\nType NextBoss <Boss Name> <Level>')
             if(!args[2]) return BOSS.reply('I need a level\nType NextBoss <Boss Name> <Level>')
-            if(args[1] === 'bushi'){
-                //BOSS.delete();
-                const BossImg = new Discord.Attachment('./images/BOSS/Bushi.png')
-                const BossEMB = new Discord.RichEmbed()
+            switch(args[1]){
+                case 'bushi':
+                     //BOSS.delete();
+                    const BossImg = new Discord.Attachment('./images/BOSS/Bushi.png')
+                    const BossEMB = new Discord.RichEmbed()
 
-                .addField('**Bushi**',`Level ${args[2]}`)
+                    .setColor(0x2c2f33)
+                    .setAuthor('Boss Invasion Alert','https://i.imgur.com/QrJKwNl.png',' ')
+                    .setThumbnail('https://i.imgur.com/JzDnCGJ.png')
+                    .addField('**Bushi**',`Level ${args[2]}`)
+                    .addField('Chellenge Begins in 18:00 +8 GMT',"Some schedule")
+                    .setImage(BossImg)
 
-                BOSS.channel.sendEmbed(BossEMB);
-            }
-            else{
-                BOSS.channel.sendMessage(`There is no such thing as ${args[1]}`);
+
+                    BOSS.channel.sendEmbed(BossEMB);
+                break;
+                default:
+                    BOSS.channel.sendMessage(`${args[1]} is not on the boss list.`);
             }
         break;
     }
