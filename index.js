@@ -90,7 +90,7 @@ bot.on('message', BOSS =>{
                 const BossImg = new Discord.Attachment('./images/BOSS/Bushi.png')
                 const BossEMB = new Discord.RichEmbed()
 
-                .addField('**Yae Sakura**','Level '[2])
+                .addField('**Bushi**',[2])
 
                 BOSS.channel.sendEmbed(BossEMB);
             }
