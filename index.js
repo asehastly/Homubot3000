@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-const token = 'NjM0NTcxMzA2MDI0ODI4OTI5.XakfaA.bRfctnIjSNETupryHsC_DleZVPs';
+const token = 'NjM0NTcxMzA2MDI0ODI4OTI5.XanEmQ.HBgUOVeDrdF3SMMJow56mdseywI';
 
 const secret = 'ZV8mJDUuFh6E6yUchOrKRSw_-lDjNg1y';
 
@@ -64,7 +64,7 @@ bot.on('message', contri =>{
             .setImage('https://i.imgur.com/gDaxAEl.png')
 
             const chart = new Discord.RichEmbed()
-            .setImage('https://i.imgur.com/gDaxAEl.png')
+            .setImage('file://logo.jpg')
 
             contri.channel.sendEmbed(disclaim);
             contri.channel.sendEmbed(chart);
@@ -72,4 +72,4 @@ bot.on('message', contri =>{
     }
 })
 
-bot.login(secret);
+bot.login(token);
