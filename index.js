@@ -1,12 +1,12 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-<<<<<<< HEAD
-const token = 'NjM0NTcxMzA2MDI0ODI4OTI5.XanEmQ.HBgUOVeDrdF3SMMJow56mdseywI';
-=======
-const {token} = require('./config.json');
->>>>>>> 364f8541f30ff25f13e8bc92086f3dbb4ac1f96b
+require('dotenv-flow').config();
 
-const secret = 'ZV8mJDUuFh6E6yUchOrKRSw_-lDjNg1y';
+const config = {
+    token: process.env.TOKEN,
+    owener: process.env.OWNER,
+    prefix: process.env.PREFIX
+}
 
 const PREFIX = "h!";
 
@@ -68,13 +68,8 @@ bot.on('message', contri =>{
             .setColor(0x2e2e2e)
             .setImage('https://i.imgur.com/gDaxAEl.png')
 
-<<<<<<< HEAD
-            const chart = new Discord.RichEmbed()
-            .setImage('file://logo.jpg')
-=======
             //const chart = new Discord.RichEmbed()
             //.setImage('https://i.imgur.com/kGiFHvm.png')
->>>>>>> 364f8541f30ff25f13e8bc92086f3dbb4ac1f96b
 
             contri.channel.sendEmbed(disclaim);
             contri.channel.send(img1)
@@ -84,4 +79,4 @@ bot.on('message', contri =>{
     }
 })
 
-bot.login(token);
+bot.login(config.token);
