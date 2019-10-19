@@ -88,8 +88,8 @@ bot.on('message', BOSS =>{
             switch(args[1]){
                 case 'bushi':
                     BOSS.delete();
-                    const BossImg = new Discord.Attachment('./images/BOSS/Bushi.png')
-                    const BossEMB = new Discord.RichEmbed()
+                    //const BossImg = new Discord.Attachment('./images/BOSS/Bushi.png')
+                    const BossEMBB = new Discord.RichEmbed()
 
                     .setColor(0x2c2f33)
                     .setAuthor('Boss Invasion Alert','https://i.imgur.com/QrJKwNl.png',' ')
@@ -99,12 +99,12 @@ bot.on('message', BOSS =>{
                     .setImage('https://i.imgur.com/tzxM9XE.png')
 
 
-                    BOSS.channel.sendEmbed(BossEMB);
+                    BOSS.channel.sendEmbed(BossEMBB);
                 break;
                 case 'ganesha':
                     BOSS.delete();
-                    const BossImg = new Discord.Attachment('./images/BOSS/Bushi.png')
-                    const BossEMB = new Discord.RichEmbed()
+                    //const BossImg = new Discord.Attachment('./images/BOSS/Bushi.png')
+                    const BossEMBG = new Discord.RichEmbed()
     
                     .setColor(0x2c2f33)
                     .setAuthor('Boss Invasion Alert','https://i.imgur.com/QrJKwNl.png',' ')
@@ -114,12 +114,12 @@ bot.on('message', BOSS =>{
                     .setImage('https://i.imgur.com/zDyGxFb.png')
     
     
-                    BOSS.channel.sendEmbed(BossEMB);
+                    BOSS.channel.sendEmbed(BossEMBG);
                 break;
                 case 'emperor':
                     BOSS.delete();
-                    const BossImg = new Discord.Attachment('./images/BOSS/Bushi.png')
-                    const BossEMB = new Discord.RichEmbed()
+                    //const BossImg = new Discord.Attachment('./images/BOSS/Bushi.png')
+                    const BossEMBE = new Discord.RichEmbed()
     
                     .setColor(0x2c2f33)
                     .setAuthor('Boss Invasion Alert','https://i.imgur.com/QrJKwNl.png',' ')
@@ -129,7 +129,7 @@ bot.on('message', BOSS =>{
                     .setImage('https://i.imgur.com/cRA80kv.png')
     
     
-                    BOSS.channel.sendEmbed(BossEMB);
+                    BOSS.channel.sendEmbed(BossEMBE);
                 break;
                 default:
                     BOSS.channel.sendMessage(`${args[1]} is not on the boss list.`);
