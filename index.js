@@ -84,17 +84,18 @@ bot.on('message', BOSS =>{
     switch(args[0]){
         case 'nboss':
             if(!args[1]) return BOSS.reply('Who do you wish to fight?\nType NextBoss <Boss Name> <Level>')
-            if(!args[2]) return BOSS.reply(`I need a level ${member.author} \nType NextBoss <Boss Name> <Level>`)
-            switch(args[1]){
-                case 'Bushi':
-                    BOSS.delete();
-                    const BossImg = new Discord.Attachment('./images/BOSS/Bushi.png')
-                    const BossEMB = new Discord.RichEmbed()
+            if(!args[2]) return BOSS.reply('I need a level\nType NextBoss <Boss Name> <Level>')
+            if(args[1] === 'bushi'){
+                BOSS.delete();
+                const BossImg = new Discord.Attachment('./images/BOSS/Bushi.png')
+                const BossEMB = new Discord.RichEmbed()
 
-                    .addField('**Yae Sakura**',`Level `[2])
+                .addField('**Yae Sakura**','Level '[2])
 
-                    BOSS.channel.sendEmbed(BossEMB)
-                break;
+                BOSS.channel.sendEmbed(BossEMB);
+            }
+            else{
+                BOSS.channel.sendMessage('There is no such thing as '[1]);
             }
         break;
     }
