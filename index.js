@@ -1,6 +1,10 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
+<<<<<<< HEAD
 const token = 'NjM0NTcxMzA2MDI0ODI4OTI5.XanEmQ.HBgUOVeDrdF3SMMJow56mdseywI';
+=======
+const {token} = require('./config.json');
+>>>>>>> 364f8541f30ff25f13e8bc92086f3dbb4ac1f96b
 
 const secret = 'ZV8mJDUuFh6E6yUchOrKRSw_-lDjNg1y';
 
@@ -55,19 +59,27 @@ bot.on('message', contri =>{
     let args = contri.content.substring(PREFIX.length).split(" ");
 
     switch(args[0]){
-        case 'contribution':
+        case 'con':
             contri.delete();
+            const img1 = new Discord.Attachment('./images/chart.png')
             const disclaim = new Discord.RichEmbed()
-
+        
             .addField('This channel is being updated daily at 12:00 +8GMT and 23:00 +8GMT',"Note: Our 150 contribution quota is on a weelky basis. So don't force yourself into doing dailies if you ran out of stamina. you can always do it the next day.")
             .setColor(0x2e2e2e)
             .setImage('https://i.imgur.com/gDaxAEl.png')
 
+<<<<<<< HEAD
             const chart = new Discord.RichEmbed()
             .setImage('file://logo.jpg')
+=======
+            //const chart = new Discord.RichEmbed()
+            //.setImage('https://i.imgur.com/kGiFHvm.png')
+>>>>>>> 364f8541f30ff25f13e8bc92086f3dbb4ac1f96b
 
             contri.channel.sendEmbed(disclaim);
-            contri.channel.sendEmbed(chart);
+            contri.channel.send(img1)
+            
+            //contri.channel.sendEmbed(chart);
         break;
     }
 })

@@ -9,6 +9,7 @@
   "author": "asehastly",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^11.5.1"
+    "discord.js": "^11.5.1",
+    "dotenv-flow": "^3.1.0"
   }
 }
