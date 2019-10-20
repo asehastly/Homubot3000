@@ -1,6 +1,7 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const bot = new Discord.Client();
+bot.commands = new Discord.Collection();
 require('dotenv-flow').config();
 
 const config = {
@@ -9,6 +10,12 @@ const config = {
     prefix: process.env.PREFIX
 }
 
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+    const command = require(`./commands/${file}`);
+    bot.commands.set(command.name, command);
+}
 const PREFIX = "h!";
 
 bot.on('ready', () =>{
@@ -28,41 +35,13 @@ bot.on('message', msg=>{
 
     switch(args[0]){
         case 'ping':
-            msg.channel.sendMessage('pong!')
-        break;
-
-        case 'website':
-            msg.channel.sendMessage('reddit.com/r/diamondclub')
+            bot.commands.get('ping').execute(msg, args);
         break;
         case ('info'):
-            switch(args[1]){
-                case 'ver':
-                    msg.channel.sendMessage('Version 1.x.x')
-                break;
-                case 'time':
-                    var moment = require('moment')
-                    var startDate = moment()
-                    var endDate = moment('20:00:00', 'HH:mm:ss')
-                    var calcTime = endDate.diff(startDate, 'miliseconds')
-
-
-                    msg.channel.sendMessage(`the time difference between ${startDate.format('hh:mm:ss')} and ${endDate.format('hh:mm:ss')} is\n${calcTime} in miliseconds`)
-                break;
-                default:
-                    msg.channel.sendMessage('WHAT?!')
-            }
+            bot.commands.get('info').execute(msg, args);
         break;
         case 'time':
-            var moment = require('moment')
-            var startDate = moment()
-            var endDate = moment('20:00:00', 'HH:mm:ss')
-            var calcTime = endDate.diff(startDate, 'miliseconds')
-
-            msg.channel.sendMessage('Going to send a message in 8:00 PM.')
-            setTimeout(delay,calcTime);
-            function delay() {
-                msg.channel.sendMessage("Time's up!")
-            }
+            bot.commands.get('time').execute(msg, args);
         break;
         case 'cls':
             if(!args[1]) return msg.reply('How many post do you want to delete?\njust type h!cls <number>')
@@ -85,22 +64,7 @@ bot.on('message', contri =>{
 //Tag for #Contribution
     switch(args[0]){
         case 'con':
-            contri.delete();
-            const img1 = new Discord.Attachment('./images/chart.png')
-            const disclaim = new Discord.RichEmbed()
-        
-            .addField('This channel is being updated daily at 12:00 +8GMT and 23:00 +8GMT',"Note: Our 150 contribution quota is on a weelky basis. So don't force yourself into doing dailies if you ran out of stamina. you can always do it the next day.")
-            .setColor(0x2e2e2e)
-            .setImage('https://i.imgur.com/gDaxAEl.png')
-
-            //const chart = new Discord.RichEmbed()
-            //.setImage('https://i.imgur.com/kGiFHvm.png')
-
-            contri.channel.sendEmbed(disclaim);
-            contri.channel.send(img1)
-            
-            //contri.channel.sendEmbed(chart);
-        break;
+            bot.commands.get("Contribution").execute(contri,args);
     }
 })
 //Tag for Boss Invasion
