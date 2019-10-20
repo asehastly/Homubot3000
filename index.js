@@ -41,7 +41,7 @@ bot.on('message', msg=>{
                 case 'time':
                     var moment = require('moment')
                     var startDate = moment()
-                    var endDate = moment('18:00:00', 'HH:mm:ss')
+                    var endDate = moment('20:00:00', 'HH:mm:ss')
                     var calcTime = endDate.diff(startDate, 'miliseconds')
 
 
@@ -54,10 +54,14 @@ bot.on('message', msg=>{
         case 'time':
             var moment = require('moment')
             var startDate = moment()
-            var endDate = moment('18:00:00', 'HH:mm:ss')
+            var endDate = moment('20:00:00', 'HH:mm:ss')
             var calcTime = endDate.diff(startDate, 'miliseconds')
 
-            msg.channel.sendMessage('Time! 18:00 +8 GMT').then(mres => {mres(calcTime)});
+            msg.channel.sendMessage('Going to send a message in 8:00 PM.')
+            setTimeout(delay,calcTime);
+            function delay() {
+                msg.channel.sendMessage("Time's up!")
+            }
         break;
         case 'cls':
             if(!args[1]) return msg.reply('How many post do you want to delete?\njust type h!cls <number>')
