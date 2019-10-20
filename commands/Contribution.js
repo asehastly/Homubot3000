@@ -4,7 +4,7 @@ module.exports = {
 	execute(contri, args) {
         const Discord = require('discord.js');
         const bot = new Discord.Client();
-        
+
 		contri.delete();
         const img1 = new Discord.Attachment('./images/chart.png')
         const disclaim = new Discord.RichEmbed()
@@ -16,6 +16,6 @@ module.exports = {
         contri.channel.bulkDelete(2);
         //posting new contribution content
         contri.channel.sendEmbed(disclaim);
-        contri.channel.send(img1)
+        contri.channel.send(img1);
 	},
 };
