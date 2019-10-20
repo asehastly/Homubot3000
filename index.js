@@ -34,11 +34,30 @@ bot.on('message', msg=>{
             msg.channel.sendMessage('reddit.com/r/diamondclub')
         break;
         case ('info'):
-            if(args[1] === 'version'){
-                msg.channel.sendMessage('Version 1.x.x')
-            }else{
-                msg.channel.sendMessage('WHAT?!')
+            switch(args[1]){
+                case 'ver':
+                    msg.channel.sendMessage('Version 1.x.x')
+                break;
+                case 'time':
+                    var moment = require('moment')
+                    var startDate = moment()
+                    var endDate = moment('18:00:00', 'HH:mm:ss')
+                    var calcTime = endDate.diff(startDate, 'miliseconds')
+
+
+                    msg.channel.sendMessage(`the time difference between ${startDate.format('hh:mm:ss')} and ${endDate.format('hh:mm:ss')} is\n${calcTime} in miliseconds`)
+                break;
+                default:
+                    msg.channel.sendMessage('WHAT?!')
             }
+        break;
+        case 'time':
+            var moment = require('moment')
+            var startDate = moment()
+            var endDate = moment('18:00:00', 'HH:mm:ss')
+            var calcTime = endDate.diff(startDate, 'miliseconds')
+
+            msg.channel.sendMessage('Time! 18:00 +8 GMT').then(mres => {mres(calcTime)});
         break;
         case 'cls':
             if(!args[1]) return msg.reply('How many post do you want to delete?\njust type h!cls <number>')
