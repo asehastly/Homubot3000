@@ -67,6 +67,16 @@ bot.on('message', contri =>{
             bot.commands.get("Contribution").execute(contri,args);
     }
 })
+//Tag for Member's list
+bot.on('message', mem =>{
+    let args = mem.content.substring(PREFIX.length).split(" ");
+//Tag for #Contribution
+    switch(args[0]){
+        case 'mem':
+            bot.commands.get("Member").execute(mem,args);
+    }
+})
+
 //Tag for Boss Invasion
 bot.on('message', BOSS =>{
     let args = BOSS.content.substring(PREFIX.length).split(" ");
