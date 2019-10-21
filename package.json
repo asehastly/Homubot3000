@@ -4,7 +4,8 @@
   "description": "Homubot3000, something something something homu. you get the idea...",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
   },
   "author": "asehastly",
   "license": "ISC",
@@ -12,5 +13,8 @@
     "discord.js": "^11.5.1",
     "dotenv-flow": "^3.1.0",
     "moment": "^2.24.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
   }
 }
