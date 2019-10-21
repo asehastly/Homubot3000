@@ -13,7 +13,7 @@ module.exports = {
         .setColor(0x2e2e2e)
         .setImage('https://i.imgur.com/gDaxAEl.png')
         //build-in purge command for clean update
-        contri.channel.bulkDelete(2);
+        contri.channel.bulkDelete(3);
         //posting new contribution content
         contri.channel.sendEmbed(disclaim);
         contri.channel.send(img1);
