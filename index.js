@@ -29,6 +29,20 @@ bot.on('ready', async () => {
 
 //Codes below
 
+//Reception Welcome and Goodbye Code
+
+//#Rules Code
+
+//#Contribution Code
+bot.on('message', cont => {
+    let args = cont.content.substring(PREFIX.length).split(" ");
+
+    if(args[0] === 'con') {
+        bot.commands.get('Contribution').execute(cont,args); 
+    } else {
+        return;
+    }
+})
 
 //end of Codes
 bot.login(config.token);
