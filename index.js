@@ -1,5 +1,5 @@
-const Discord = require('discord.js');
 const fs = require('fs');
+const Discord = require('discord.js');
 const bot = new Discord.Client();
 bot.commands = new Discord.Collection();
 require('dotenv-flow').config();
@@ -35,7 +35,12 @@ bot.on('ready', async () => {
 //Codes below
 
 //Reception Welcome and Goodbye Code
+bot.on('guildMemberAdd', member =>{
+    const channel = member.guild.channels.find(channel => channel.name === "testing-site-1");
+    if(!channel) return;
 
+    channel.send(`Welcome to server, ${member} . something something something homu`)
+});
 //#Rules Code
 
 //Member's list codes
@@ -50,7 +55,7 @@ bot.on('message', memlist => {
 })
 
 //#Contribution Code
-bot.on('message', cont => {
+bot.on('message', async cont => {
     let args = cont.content.substring(PREFIX.length).split(" ");
 
     if(args[0] === 'con') {
@@ -66,9 +71,11 @@ bot.on('message', react => {
 
     switch(args[0]){
         case 'react':
+            //bot.channels.get('621572547325984769').sendMessage('Hello');
             if(!args[1]) return react.reply(`I'm not so sure how to react? ${emoji('624616931772596254')}`);
             if(!args[2]) return react.reply(`In what room should I react too? ${emoji('624616931772596254')}`);
             bot.commands.get('React').execute(react,args);
+            
         break;
     }
     
