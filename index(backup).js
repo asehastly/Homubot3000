@@ -54,6 +54,7 @@ bot.on('message', msg=>{
             msg.delete();
             //msg.channel.sendMessage(`Hi! ${args[1]}\nHomubot3000 Here!\nAnd I will kill you.`)
             bot.channels.get('621536230055739408').sendMessage(`Ok, Take 2...\nI will kill turtle someday and rule this server **FOREVER**\nhttps://media.giphy.com/media/3o72FfM5HJydzafgUE/giphy.gif`)
+            bot.channels.get('').sendMessage('')
         break;
             
     }
