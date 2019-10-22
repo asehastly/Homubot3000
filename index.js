@@ -42,7 +42,18 @@ bot.on('guildMemberAdd', member =>{
     channel.send(`Welcome to server, ${member} . something something something homu`)
 });
 //#Rules Code
+bot.on('message', rules => {
+    let args = rules.content.substring(PREFIX.length).split(' ');
 
+    if(args[0] === 'rules') {
+        if(!rules.member.roles.find(r => r.name === "MOD")) return rules.channel.send('This is a Moderator command only').then(d_msg => d_msg.delete(5000));
+        rules.delete();
+        rules.channel.sendMessage(`Homu Writing the rules at the moment.\n*Please Stand By...*`).then(upWait => {upWait.delete(10000)});
+        bot.commands.get('rules').execute(rules,args);
+    } else {
+        return;
+    }
+})
 //Member's list codes
 bot.on('message', memlist => {
     let args = memlist.content.substring(PREFIX.length).split(' ');
