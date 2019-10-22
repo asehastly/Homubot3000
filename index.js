@@ -5,7 +5,7 @@ bot.commands = new Discord.Collection();
 require('dotenv-flow').config();
 
 const config = {
-    token: process.env.Token,
+    token: process.env.TOKEN,
     owner: process.env.OWNER,
 }
 
@@ -45,6 +45,7 @@ bot.on('guildMemberAdd', member =>{
 
 //Member's list codes
 bot.on('message', memlist => {
+    if(!message.member.roles.find(r => r.name === "MOD")) return message.channel.send('This is a Moderator command only').then(d_msg => d_msg.delete(5000));
     let args = memlist.content.substring(PREFIX.length).split(' ');
 
     if(args[0] === 'mem') {
