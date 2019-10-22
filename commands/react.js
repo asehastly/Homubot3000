@@ -22,6 +22,18 @@ module.exports = {
                     break;
                 }
             break;
+            case 'angry':
+                switch(args[2]){
+                    case 'gallery':
+                        //bot.channels.get('621572547325984769').sendMessage(`${emoji('624579235138240512')}`);
+                        react.client.channels.get('621572547325984769').sendMessage(`you motherfucker!`);
+                    break;
+                    case 'main':
+                        //bot.channels.get('621572547325984769').sendMessage(`${emoji('624579235138240512')}`);
+                        react.client.channels.get('621536230055739408').sendMessage(`Shut up! just SHUT UP!!!`);
+                    break;
+                }
+            break;
         }
 	},
 };
