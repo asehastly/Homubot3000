@@ -68,11 +68,11 @@ module.exports = {
                 },
                 {
                     name: '#5',
-                    value: "If possible, if you're going to do a Matrix Floor, At the very least, try reaching Level 10. it's for your own good, trust me.",
+                    value: "If possible, do some matrix floor run and reach at least floor 10. trust me, it's for your own good.",
                 },
                 {
                     name: '#6',
-                    value: `Salt and flexing is "NOT" prohibited but maintain in moderation. if you get salted, Calm down and embrace it's Salt flavour of saltiness.`,
+                    value: `Salt and flexing is "NOT" prohibited though, keep in moderation. we don't want everyone to go dehydrate. if you get salted, Calm down and just savor the taste of it's salty goodness.`,
                 },
                 {
                     name: '#7',
