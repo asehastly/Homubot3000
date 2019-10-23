@@ -47,7 +47,7 @@ bot.on('message', rules => {
 
     if(args[0] === 'rules') {
         if(!rules.member.roles.find(r => r.name === "MOD")) return rules.channel.send('This is a Moderator command only').then(d_msg => d_msg.delete(5000));
-        rules.delete();
+        rules.channel.bulkDelete(4);
         rules.channel.sendMessage(`Homu Writing the rules at the moment.\n*Please Stand By...*`).then(upWait => {upWait.delete(10000)});
         bot.commands.get('rules').execute(rules,args);
     } else {
