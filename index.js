@@ -39,6 +39,7 @@ bot.on('guildMemberAdd', member =>{
     const channel = member.guild.channels.find(channel => channel.name === "testing-site-1");
     if(!channel) return;
 
+    bot.commands.get('recept').execute(member,args);
     channel.send(`Welcome to server, ${member} . something something something homu`)
 });
 //#Rules Code
