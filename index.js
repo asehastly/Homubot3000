@@ -3,7 +3,14 @@ const bot = new Discord.Client();
 bot.commands = new Discord.Collection();
 require('dotenv-flow').config();
 
-require('./global')(bot);
+const fs = require('fs');
+//require('./global/filesys.js')(bot);
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+
+    for (let file of commandFiles) {
+        const command = require(`./commands/${file}`);
+        bot.commands.set(command.name, command);
+    }
 
 const config = {
     token: process.env.TOKEN,
@@ -33,7 +40,8 @@ bot.on('guildMemberAdd', member =>{
     const channel = member.guild.channels.find(channel => channel.name === "testing-site-1");
     if(!channel) return;
 
-    bot.commands.get('recept').execute(member,args);
+    const defaultChannel = member.guild.channels.find(channel => channel.permissionsFor(guild.me).has("SEND_MESSAGES"));
+    defaultChannel.send(`Welcome ${member.user} to this server.`).catch(console.error);
     channel.send(`Welcome to server, ${member} . something something something homu`)
 });
 //#Rules Code
@@ -91,8 +99,8 @@ bot.on('message', react => {
 })
 
 //end of Codes
-module.exports = {
+/*module.exports = {
     bot: bot
-};
+};*/
 
 bot.login(config.token);
