@@ -1,8 +1,9 @@
-const fs = require('fs');
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 bot.commands = new Discord.Collection();
 require('dotenv-flow').config();
+
+require('./global')(bot);
 
 const config = {
     token: process.env.TOKEN,
@@ -10,13 +11,6 @@ const config = {
 }
 
 const PREFIX = process.env.PREFIX;
-
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
-for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
-    bot.commands.set(command.name, command);
-}
 
 function emoji(id) {
     return bot.emojis.get(id).toString();
@@ -97,4 +91,8 @@ bot.on('message', react => {
 })
 
 //end of Codes
+module.exports = {
+    bot: bot
+};
+
 bot.login(config.token);
