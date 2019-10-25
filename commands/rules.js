@@ -2,7 +2,7 @@ module.exports = {
 	name: 'rules',
 	description: 'codes to display rules',
 	execute(rules, args) {
-        const Discord = require('discord.js')
+        //const Discord = require('discord.js')
         //let channel = message.channel;
         
         //banner
