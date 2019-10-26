@@ -6,8 +6,6 @@ require('dotenv-flow').config();
 //trying enmap for handlers
 const Enmap = require('enmap');
 
-
-
 //require('./global/filesys.js')(bot);
 /*Old fs code
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
