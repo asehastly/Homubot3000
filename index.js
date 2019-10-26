@@ -1,15 +1,15 @@
+const fs = require('fs');
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-bot.commands = new Discord.Collection();
+//bot.commands = new Discord.Collection();
 require('dotenv-flow').config();
 //trying enmap for handlers
 const enmap = require('enmap');
 bot.commands = new Discord.enmap
 
 
-const fs = require('fs');
 //require('./global/filesys.js')(bot);
-/* Old fs code
+/*Old fs code
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
     for (let file of commandFiles) {
@@ -20,14 +20,23 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 const config = {
     token: process.env.TOKEN,
     owner: process.env.OWNER,
-}
-*/
+}*/
 //enmap
-fs.readdir('./commands/', async (err, files) => {
-    if(err )
-})
 
 const PREFIX = process.env.PREFIX;
+
+//Nerd Cave Example only
+bot.on('message', message =>{
+    if(message.author.bot) return;
+    if(message.content.indexOf(PREFIX) !== 0) return;
+
+    const args = message.content.slice(prefix.length).trim().split(/ +/g);
+    const command = args.shift().toLowerCase();
+
+    const cmd = bot.commands.get(command);
+    if(!cmd) return;
+    cmd.run(bot, message, args);
+});
 
 function emoji(id) {
     return bot.emojis.get(id).toString();
@@ -42,7 +51,7 @@ bot.on('ready', async () => {
         console.log(err.stack)
     });
 })
-
+/*
 //Codes below
 
 //Reception Welcome and Goodbye Code
@@ -112,5 +121,16 @@ bot.on('message', react => {
 /*module.exports = {
     bot: bot
 };*/
+//enmap file system
+fs.readdir('./commands/', async (err, files) => {
+    if(err) return console.error;
+    files.forEach(files => {
+        if(!files.endsWith('.js')) return;
+        let props = require(`./commands/${file}`);
+        let cmdName = file.split('.')[0];
+        console.log(`Loaded command '${cmdName}'.`);
+        bot.commands.set(cmdName, props);
+    });
+});
 
 bot.login(config.token);
