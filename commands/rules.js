@@ -2,7 +2,7 @@ module.exports = {
 	name: 'rules',
 	description: 'codes to display rules',
 	execute(rules, args) {
-        const Discord = require('discord.js')
+        //const Discord = require('discord.js')
         //let channel = message.channel;
         
         //banner
@@ -72,7 +72,7 @@ module.exports = {
                 },
                 {
                     name: '#6',
-                    value: `Salt and flexing is "NOT" prohibited though, keep in moderation. we don't want everyone to go dehydrate. if you get salted, Calm down and just savor the taste of it's salty goodness.`,
+                    value: `Salt and flexing is "NOT" prohibited. though, keep in moderation. we don't want everyone to go dehydrate. if you get salted, Calm down and just savor the taste of it's salty goodness.`,
                 },
                 {
                     name: '#7',

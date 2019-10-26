@@ -2,8 +2,6 @@ module.exports = {
 	name: 'Member',
 	description: 'desc.',
 	execute(mem, args) {
-		const Discord = require('discord.js');
-        const bot = new Discord.Client();
         
 		mem.delete();
         const Adm = new Discord.Attachment('./images/members-list/A_Nameplate.png')
