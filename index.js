@@ -1,144 +1,51 @@
+require('dotenv-flow').config();
 const fs = require('fs');
 const Discord = require('discord.js');
-const bot = new Discord.Client();
-//bot.commands = new Discord.Collection();
-require('dotenv-flow').config();
-//trying enmap for handlers
-const Enmap = require('enmap');
-
-//require('./global/filesys.js')(bot);
-/*Old fs code
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
-    for (let file of commandFiles) {
-        const command = require(`./commands/${file}`);
-        bot.commands.set(command.name, command);
-    }
-}*/
+const homu = new Discord.Client();
 
 const config = {
     token: process.env.TOKEN,
     owner: process.env.OWNER,
+    prefix: process.env.PREFIX
 }
-const PREFIX = process.env.PREFIX;
+const prefix = config.prefix;
 
-bot.commands = new Enmap();
-
-function emoji(id) {
-    return bot.emojis.get(id).toString();
-}
-
-bot.on('ready', async () => {
-    console.log('Homubot3000 online\nReady to go...');
-
-    bot.generateInvite(['ADMINISTRATOR']).then(link => {
-        console.log(link);
-    }).catch(err => {
-        console.log(err.stack)
-    });
+homu.on('ready', () => {
+    console.log(`${homu.user.tag} logging in...`);
+    setTimeout(homuRun => {
+        console.log('HomuBot3000 logged and ready to go!');
+    },7000)
+    setTimeout(homuRun => {
+        console.log(' ');
+    },8000)
 })
-//Nerd Cave Example only
-bot.on('message', message =>{
+/*Discord Bot command array sample,
+h!mute @user 12h Posting too many shit memes
+[0][1]  [2]  [3]  [4]    [5] [6]   [7]  [8]
+h!mute <user> <time> <reason>               */
+homu.on('message', message => {
     if(message.author.bot) return;
-    if(message.content.indexOf(PREFIX) !== 0) return;
-
-    const args = message.content.slice(PREFIX.length).trim().split(/ +/g);
+    if(message.content.indexOf(prefix)!== 0) return;
+    const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
-    const cmd = bot.commands.get(command);
-    if(!cmd) return;
-    cmd.run(bot, message, args);
-});
-/*
-//Codes below
-
-//Reception Welcome and Goodbye Code
-bot.on('guildMemberAdd', member =>{
-    const channel = member.guild.channels.find(channel => channel.name === "testing-site-1");
-    if(!channel) return;
-
-    const defaultChannel = member.guild.channels.find(channel => channel.permissionsFor(guild.me).has("SEND_MESSAGES"));
-    defaultChannel.send(`Welcome ${member.user} to this server.`).catch(console.error);
-    channel.send(`Welcome to server, ${member} . something something something homu`)
-});
-//#Rules Code
-bot.on('message', rules => {
-    let args = rules.content.substring(PREFIX.length).split(' ');
-
-    if(args[0] === 'rules') {
-        if(!rules.member.roles.find(r => r.name === "MOD")) return rules.channel.send('This is a Moderator command only').then(d_msg => d_msg.delete(5000));
-        rules.channel.bulkDelete(4);
-        rules.channel.sendMessage(`Homu Writing the rules at the moment.\n*Please Stand By...*`).then(upWait => {upWait.delete(10000)});
-        bot.commands.get('rules').execute(rules,args);
-    } else {
-        return;
-    }
-})
-//Member's list codes
-bot.on('message', memlist => {
-    let args = memlist.content.substring(PREFIX.length).split(' ');
-
-    if(args[0] === 'mem') {
-        if(!memlist.member.roles.find(r => r.name === "MOD")) return memlist.channel.send('This is a Moderator command only').then(d_msg => d_msg.delete(5000));
-        bot.commands.get('Member').execute(memlist,args);
-    } else {
-        return;
-    }
-})
-*/
-//#Contribution Code
-bot.on('message', async cont => { /*
-    let args = cont.content.substring(PREFIX.length).split(" ");
-
-    if(args[0] === 'con') {
-        bot.commands.get('Contribution').execute(cont,args); 
-    } else {
-        return;
-    }*/
-    if(cont.author.bot) return;
-    if(cont.content.indexOf(PREFIX) !== 0) return;
-
-    const args = cont.content.slice(PREFIX.length).trim().split(/ +/g);
-    const command = args.shift().toLowerCase();
-
-    const cmd = bot.commands.get(command);
-    if(!cmd) return;
-    cmd.run(bot, cont, args);
-})
-//Boss Invasion
-/*
-// Chat Reaction
-bot.on('message', react => {
-    let args = react.content.substring(PREFIX.length).split(' ');
-
-    switch(args[0]){
-        case 'react':
-            //bot.channels.get('621572547325984769').sendMessage('Hello');
-            if(!args[1]) return react.reply(`I'm not so sure how to react? ${emoji('624616931772596254')}`);
-            if(!args[2]) return react.reply(`In what room should I react too? ${emoji('624616931772596254')}`);
-            bot.commands.get('React').execute(react,args);
-            
+    switch(command) {
+        case 'ping':
+            message.channel.send('pong');
         break;
+        case 'myname':
+            const name = message.member.displayName;
+            message.delete();
+            message.channel.send(`Your name is ${name}`);
+        break;
+        case 'say':
+            const respond = args.join(' ')
+            message.delete();
+            message.channel.send(`you said, "${respond}"\nI say, No! Fuck you!`)
+        break;
+        default:
+            message.channel.send('uh.... What?')
     }
-    
-
-})
-
-//end of Codes
-/*module.exports = {
-    bot: bot
-};*/
-//enmap file system
-//enmap
-fs.readdir('./commands/', async (err, files) => {
-    if(err) return console.error;
-    files.forEach(file => {
-        if(!file.endsWith('.js')) return;
-        let props = require(`./commands/${file}`);
-        let cmdName = file.split('.')[0];
-        console.log(`Loaded command '${cmdName}'.`);
-        bot.commands.set(cmdName, props);
-    });
 });
 
-bot.login(config.token);
+homu.login(config.token);
