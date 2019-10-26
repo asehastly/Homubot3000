@@ -2,6 +2,7 @@ require('dotenv-flow').config();
 const fs = require('fs');
 const Discord = require('discord.js');
 const homu = new Discord.Client();
+homu.Command = new Discord.Collection;
 
 const config = {
     token: process.env.TOKEN,
@@ -42,6 +43,16 @@ homu.on('message', message => {
             const respond = args.join(' ')
             message.delete();
             message.channel.send(`you said, "${respond}"\nI say, No! Fuck you!`)
+        break;
+        case 'contribute':
+            const chart = new Discord.Attachment('./images/chart.png')
+            const disclaim = new Discord.RichEmbed()
+            .addField('This channel is being updated daily at 12:00 +8GMT and 23:00 +8GMT',"Note: Our 150 contbution quota is on a weelky basis. So don't force yourself into doing dailies if you ran out of stamina. you can always do it the next day.")
+            .setColor(0x2e2e2e)
+            .setImage('https://i.imgur.com/gDaxAEl.png')
+
+            //reserve this line for purge command
+            message.channel.sendEmbed(disclaim).then(message.channel.send(chart));
         break;
         default:
             message.channel.send('uh.... What?')
