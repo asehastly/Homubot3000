@@ -2,9 +2,14 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 bot.commands = new Discord.Collection();
 require('dotenv-flow').config();
+//trying enmap for handlers
+const enmap = require('enmap');
+bot.commands = new Discord.enmap
+
 
 const fs = require('fs');
 //require('./global/filesys.js')(bot);
+/* Old fs code
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
     for (let file of commandFiles) {
@@ -16,6 +21,11 @@ const config = {
     token: process.env.TOKEN,
     owner: process.env.OWNER,
 }
+*/
+//enmap
+fs.readdir('./commands/', async (err, files) => {
+    if(err )
+})
 
 const PREFIX = process.env.PREFIX;
 
