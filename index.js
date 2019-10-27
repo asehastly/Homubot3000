@@ -1,10 +1,13 @@
-require('dotenv-flow').config();
-const fs = require('fs');
+//require('dotenv-flow').config();
 const Discord = require('discord.js');
+const fs = require('fs');
+const Enmap = require('enmap');
 const homu = new Discord.Client();
-homu.Command = new Discord.Collection;
+homu.collection = new Discord.Collection();
+homu.commands = new Enmap();
+const { token } = require('./config.js');
 
-const config = {
+/* const config = {
     token: process.env.TOKEN,
     owner: process.env.OWNER,
     prefix: process.env.PREFIX
@@ -24,39 +27,41 @@ homu.on('ready', () => {
 h!mute @user 12h Posting too many shit memes
 [0][1]  [2]  [3]  [4]    [5] [6]   [7]  [8]
 h!mute <user> <time> <reason>               */
-homu.on('message', message => {
+
+/* homu.on('message', message => {
     if(message.author.bot) return;
     if(message.content.indexOf(prefix)!== 0) return;
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
-    switch(command) {
-        case 'ping':
-            message.channel.send('pong');
-        break;
-        case 'myname':
-            const name = message.member.displayName;
-            message.delete();
-            message.channel.send(`Your name is ${name}`);
-        break;
-        case 'say':
-            const respond = args.join(' ')
-            message.delete();
-            message.channel.send(`you said, "${respond}"\nI say, No! Fuck you!`)
-        break;
-        case 'contribute':
-            const chart = new Discord.Attachment('./images/chart.png')
-            const disclaim = new Discord.RichEmbed()
-            .addField('This channel is being updated daily at 12:00 +8GMT and 23:00 +8GMT',"Note: Our 150 contbution quota is on a weelky basis. So don't force yourself into doing dailies if you ran out of stamina. you can always do it the next day.")
-            .setColor(0x2e2e2e)
-            .setImage('https://i.imgur.com/gDaxAEl.png')
+    const cmd = homu.commands.get(command);
+    if(!cmd) return;
 
-            //reserve this line for purge command
-            message.channel.sendEmbed(disclaim).then(message.channel.send(chart));
-        break;
-        default:
-            message.channel.send('uh.... What?')
-    }
+    cmd.run(homu, message, args);
+
+}); */
+
+fs.readdir('./events/', (err, files) => {
+    if(err) return console.error;
+    files.forEach(file => {
+        if(!file.endsWith('.js')) return;
+        const evt = require(`./events/${file}`);
+        let evtName = file.split('.')[0];
+        console.log(`${evtName} has been loaded...`);
+        homu.on(evtName, evt.bind(null, homu));
+    })
+})
+
+fs.readdir('./commands/', async (err, files) => {
+    if(err) return console.error;
+    files.forEach(file => {
+        if(!file.endsWith('.js')) return;
+        let props = require(`./commands/${file}`);
+        let cmdName = file.split('.')[0];
+        console.log(`${cmdName} has been loaded...`);
+        homu.commands.set(cmdName, props);
+    });
+
 });
 
-homu.login(config.token);
+homu.login(token);
