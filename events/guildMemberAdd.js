@@ -1,6 +1,6 @@
 module.exports = (homu, member) => {
     const moment = require('moment');
-    let welcome = member.guild.channels.find(c => c.name === 'testing-site-1');
+    let welcome = member.guild.channels.find(c => c.name === 'reception');
     //let memDate = moment(moment(member.joinedAt).format("lll"));
     var rule = '';
     const Discord = require('discord.js')
