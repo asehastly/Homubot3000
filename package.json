@@ -1,5 +1,5 @@
 {
-  "name": "homubot3000",
+  "name": "discord.js-heroku",
   "version": "1.0.0",
   "description": "Homubot3000, something something something homu. you get the idea...",
   "main": "index.js",
@@ -18,6 +18,10 @@
     "moment": "^2.24.0",
     "node": "^12.12.0"
   },
+  "keywords": [
+    "heroku",
+    "discord.js"
+  ],
   "devDependencies": {
     "nodemon": "^1.19.4"
   }
