@@ -1,39 +1,35 @@
-module.exports = {
-	name: 'React',
-	description: 'Some dumb idea I need to get out of my head',
-    execute(react, args) {
-        //const Discord = require('discord.js');
-        //const bot = new Discord.Client();
+exports.run = (homu, message, args) => {
+    const Discord = require('discord.js');
 
-        function emoji(id) {
-            //return bot.emojis.get(id).toString();
-            return react.client.emojis.get(id).toString();
-        }
-		switch(args[1]){
-            case 'laugh':
-                switch(args[2]){
-                    case 'gallery':
-                        //bot.channels.get('621572547325984769').sendMessage(`${emoji('624579235138240512')}`);
-                        react.client.channels.get('621572547325984769').sendMessage(`Funny ${emoji('624579235138240512')}\n**Being Sarcastic*`);
-                    break;
-                    case 'main':
-                        //bot.channels.get('621572547325984769').sendMessage(`${emoji('624579235138240512')}`);
-                        react.client.channels.get('621536230055739408').sendMessage(`Funny ${emoji('624579235138240512')}\n**Being Sarcastic*`);
-                    break;
-                }
-            break;
-            case 'angry':
-                switch(args[2]){
-                    case 'gallery':
-                        //bot.channels.get('621572547325984769').sendMessage(`${emoji('624579235138240512')}`);
-                        react.client.channels.get('621572547325984769').sendMessage(`you motherfucker!`);
-                    break;
-                    case 'main':
-                        //bot.channels.get('621572547325984769').sendMessage(`${emoji('624579235138240512')}`);
-                        react.client.channels.get('621536230055739408').sendMessage(`Shut up! just SHUT UP!!!`);
-                    break;
-                }
-            break;
-        }
-	},
+    message.channel.send(message.member.guild.icon)
+    message.channel.send(message.member.guild.iconUrl)
+    const Welemb = new Discord.RichEmbed({
+        color: 0x2c2f33,
+	    title: 'Welcome Aboard Captain!',
+	    author: {
+		    name: `${message.member.user.tag} has joined`,
+		    icon_url: message.member.user.displayAvatarURL,
+        },
+        description: `**Welcome Captain ${message.member.displayName}** We've been waiting for you.
+        before we start, kindly visit <#621631411392086036> to familiarize yourself with our rules in our armada. then, head over to <#623773208667095070> and pick the color you like.`,
+        thumbnail: {
+            url: message.member.guild.iconUrl,
+        },
+        fields: [
+            {
+                name: '⠀',
+                value: 'Have a great day and #JoinTheConversation at <#621536230055739408>',
+            },
+        ],
+        timestamp: new Date(),
+        footer: {
+            text: `${message.member.guild}™ Armada MMXIX `,
+            icon_url: message.member.guild.iconUrl,
+        },
+    })
+    message.channel.sendEmbed(Welemb);
 };
+
+exports.help = {
+	name: 'react'
+}
