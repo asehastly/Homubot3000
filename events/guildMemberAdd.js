@@ -24,7 +24,7 @@ module.exports = (homu, member) => {
         ],
         timestamp: new Date(),
         footer: {
-            text: `${member.guild} Armada™ MMXIX `,
+            text: `${member.guild}™ Armada MMXIX `,
             icon_url: member.guild.iconURL,
         },
     })
