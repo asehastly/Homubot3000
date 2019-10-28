@@ -22,8 +22,9 @@ module.exports = (homu, member) => {
                 value: 'Have a great day and #JoinTheConversation at <#621536230055739408>',
             },
         ],
+        timestamp: new Date(),
         footer: {
-            text: `Joined at: ${member.joinedAt}`,
+            text: `${member.guild} Armada™ MMXIX `,
             icon_url: member.guild.iconURL,
         },
     })
