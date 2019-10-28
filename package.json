@@ -4,6 +4,7 @@
   "description": "Homubot3000, something something something homu. you get the idea...",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js"
   },
