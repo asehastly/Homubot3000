@@ -4,7 +4,8 @@ exports.run = (homu, message, args) => {
     var endDate = moment('22:30:00', 'HH:mm:ss');
     var calcTime = endDate.diff(startDate, 'miliseconds');
 
-    message.channel.send('Going to send a message in 1:30 PM.');
+    message.channel.send('Going to send a message in 11:30 PM.');
+    message.channel.send(calcTime);
     console.log(calcTime);
     setTimeout(delay => {
         message.channel.send("Time's up!");
