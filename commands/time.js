@@ -5,7 +5,7 @@ exports.run = (homu, message, args) => {
     var calcTime = endDate.diff(startDate, 'miliseconds');
 
     message.channel.send('Going to send a message in 11:30 PM.');
-    message.channel.send(calcTime);
+    console.log(`Start time Initiated:\n${startDate}\nTime Stop initiated:\n${endDate}\nTime Elapsed in mil.:\n${calcTime}`)
     console.log(calcTime);
     setTimeout(delay => {
         message.channel.send("Time's up!");
