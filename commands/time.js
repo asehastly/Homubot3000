@@ -1,52 +1,23 @@
 exports.run = (homu, message, args) => {
 	var moment = require('moment');
     var startDate = moment();
-    var endDate = moment('7:30:00', 'HH:mm:ss');
-    var calcTime = endDate.diff(startDate, 'miliseconds');
+    var f_noti = moment('16:00:00', 'HH:mm:ss');
+    var s_noti = moment('17:00:00', 'HH:mm:ss');
+    //var f_display = moment('11:40:00', 'HH:mm:ss');
+    var calc_f = f_noti.diff(startDate, 'miliseconds');
+    var calc_s = s_noti.diff(startDate, 'miliseconds');
 
-    message.channel.send('Going to send a message in 11:30 PM.');
-    console.log(`Start time Initiated:\n${startDate}\nTime Stop initiated:\n${endDate}\nTime Elapsed in mil.:\n${calcTime}`)
-    console.log(calcTime);
-    setTimeout(delay => {
-        message.channel.send("Time's up!");
-    },calcTime);
-    /* const h = new Date().getHours();
-    const m = new Date().getMinutes();
-    const s = new Date().getSeconds();
-    rH, rM, rS, cH, cM, cS, mm, cm;
-    rH = 17-h;
-    rM = 55-m;
-    rS = 59-s;
-
-    message.channel.send(`Current time: ${h}:${m}:${s}\n Time out in: ${rH}:${rM}:${rS}`)
-    rH = parseint(h*3600000);
-    rM = parseint(m*60000);
-    rS = parseint(s*1000);
-
-
-    if(rH === 0) {
-        cM = rM*60000;
-        cS = rS*1000;
-        console.log(`zero hour`);
-    } else if(rH === 0 && rM === 0) {
-        cS = rS*1000;
-        console.log('zero hour and minutes');
-    } else {
-        cH = rH*3600000;
-        cM = rM*60000;
-        cS = rS*1000;
-        console.log('else');
-    }
-    
-    mm = rH+rM+rS;
-    cm = cH+cM+cS;
-
-    message.channel.send(`Current time in milliseconds: ${mm}`);
-    message.channel.send(`Elapsed time in milliseconds: ${cm}`);
-    
-    setTimeout(delay => {
-        message.channel.send("Time's up!")
-    }, cm) */
+    message.channel.send(`Going to send a message in ${f_noti.format('hh:mm A')} and ${s_noti.format('hh:mm A')}`);
+    console.log(`time.js engaged:\nStart time Initiated:\n${startDate.format('hh:mm A')}\nTime Stop initiated:\n${f_noti.format('hh:mm A')} folowed by ${s_noti.format('hh:mm A')}\nTime Elapsed in mil.:\n${calc_f} followed by ${calc_s}`)
+    //console.log(calcTime);
+    setTimeout(delay1 => {
+        message.channel.send("<@&621558338005630978> 1st Time's up!");
+        console.log('Timer 1 stopped.');
+    },calc_f);
+    setTimeout(delay2 => {
+        message.channel.send("<@&621558338005630978> 2nd Time's up!");
+        console.log('Timer 2 stopped.');
+    },calc_s);
 };
 
 exports.help = {
