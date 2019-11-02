@@ -1,8 +1,8 @@
 exports.run = (homu, message, args) => {
-	var moment = require('moment');
-    var startDate = moment();
-    var f_noti = moment('16:00:00', 'HH:mm:ss');
-    var s_noti = moment('17:00:00', 'HH:mm:ss');
+    var moment = require('moment-timezone');
+    var startDate = moment().tz('Asia/Manila');
+    var f_noti = moment('17:00:00', 'HH:mm:ss');
+    var s_noti = moment('18:00:00', 'HH:mm:ss');
     //var f_display = moment('11:40:00', 'HH:mm:ss');
     var calc_f = f_noti.diff(startDate, 'miliseconds');
     var calc_s = s_noti.diff(startDate, 'miliseconds');
