@@ -1,8 +1,9 @@
 exports.run = (homu, message, args) => {
     const Discord = require('discord.js');
 
+    let mention = message.guild.members.get(args[0]);
     message.delete();
-    const policy = new Discord.RichEmbed()
+    /* const policy = new Discord.RichEmbed()
             .setColor(0x2c2f33)
             .setTitle('If you recieved a warning or a strike, what can you do?')
             .setAuthor('Rules|Our Warning and Strike Procedure', 'https://i.imgur.com/QrJKwNl.png', ' ')
@@ -13,8 +14,8 @@ exports.run = (homu, message, args) => {
             .addField('If you recieved your 2st Strike', "Your strike will only be lifted if you complete at least **300 Contribution** or more by the following week.")
             .addField('If you recieved your 3st Strike', "This will be your last chance to complete **450 Contribution** or more the following week")
             .addField('If you failed to complete your 3rd strike', "Will result in the termination of your membership to our armada.")
-            .setFooter('Diamond Club Armada', 'https://i.imgur.com/FpIimN1.png');
-    message.channel.send(policy);
+            .setFooter('Diamond Club Armada', 'https://i.imgur.com/FpIimN1.png'); */
+    message.channel.send(mention);
 };
 
 exports.help = {
