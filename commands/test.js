@@ -1,21 +1,47 @@
 exports.run = (homu, message, args) => {
     const Discord = require('discord.js');
+    const moment = require('moment-timezone');
 
-    let mention = message.guild.members.get(args[0]);
-    message.delete();
-    /* const policy = new Discord.RichEmbed()
+    let user =  message.mentions.users.first();
+    let gmem = message.mentions.members.first();
+    let DateJoin = moment(gmem.joinedAt).format('ddd DD MMM, YYYY | h:mm A');
+    let DateCreate = moment(user.createdAt).format('ddd DD MMM, YYYY | h:mm A');
+    let avt = user.displayAvatarURL
+    
+    const memEMB = new Discord.RichEmbed()
             .setColor(0x2c2f33)
-            .setTitle('If you recieved a warning or a strike, what can you do?')
-            .setAuthor('Rules|Our Warning and Strike Procedure', 'https://i.imgur.com/QrJKwNl.png', ' ')
-            .setDescription(`Here are some of the things you can do for your warning or strikes to be lifted.`)
-            .addBlankField()
-            .addField('If you recieved a warning', `Simply DM, mention, or whisper me on discord or on the game as to why you can't or wasn't able to do it. thusly we can lift your warning as soon as possible.`)
-            .addField('If you recieved your 1st Strike', "Giving any reason at this point won't do. but we can still lift you strike if you can complete **150 Contribution** or more the following week.")
-            .addField('If you recieved your 2st Strike', "Your strike will only be lifted if you complete at least **300 Contribution** or more by the following week.")
-            .addField('If you recieved your 3st Strike', "This will be your last chance to complete **450 Contribution** or more the following week")
-            .addField('If you failed to complete your 3rd strike', "Will result in the termination of your membership to our armada.")
-            .setFooter('Diamond Club Armada', 'https://i.imgur.com/FpIimN1.png'); */
-    message.channel.send(mention);
+            .setAuthor(`${message.guild.name} Membership Card`, 'https://i.imgur.com/1K2pdQH.png', ' ')
+            .setThumbnail(avt)
+            //.addBlankField()
+            .addField(`${gmem.displayName}`, `${user.username}#${user.discriminator}`, true)
+            .addField(`Status:`, `${user.presence.status}`, true)
+            .addField('Joined Discord:', `${DateCreate}`, true)
+            .addField(`Joined ${message.guild.name}:`, `${DateJoin}`, true)
+            .addField('Roles:',gmem.roles.map(r => `${r}`).join(' | '))
+            .addField('Game ID:', "XXXXXXXX", true)
+            .addField('In-Game Name:', "anonymous", true)
+            //.addField('[Insert detail name here]:', "[insert detail here]", true)
+            //.addField('If you recieved your 2st Strike', "Your strike will only be lifted if you complete at least **300 Contribution** or more by the following week.")
+            //.addField('If you recieved your 3st Strike', "This will be your last chance to complete **450 Contribution** or more the following week")
+            //.addField('If you failed to complete your 3rd strike', "Will result in the termination of your membership to our armada.")
+            .setFooter('Diamond Club Armada', 'https://i.imgur.com/FpIimN1.png');
+        
+        //message.delete();
+        message.channel.send(memEMB);
+
+        function getUserFromMention(mention) {
+            if (!mention) return;
+        
+            if (mention.startsWith('<@') && mention.endsWith('>')) {
+                mention = mention.slice(2, -1);
+        
+                if (mention.startsWith('!')) {
+                    mention = mention.slice(1);
+                }
+        
+                return homu.users.get(mention);
+            }
+        }
 };
 
 exports.help = {
