@@ -1,64 +1,122 @@
 exports.run = (homu, message, args) => {
     const Discord = require('discord.js');
+    const moment = require('moment-timezone');
 
-    var hour = new Date().getHours();
+    var hour = moment().tz('Asia/Manila').format('HH');
+
+    var local = moment();
+    var startDate = moment().tz('Asia/Manila').format('HH:mm:ss');
+    var f_noti = moment('9:00:00', 'HH:mm:ss').tz('Asia/Manila').format('HH:mm:ss');
+    var s_noti = moment('10:00:00', 'HH:mm:ss').tz('Asia/Manila').format('HH:mm:ss');
+    //Computation from the time boss was set to 5:00 PM
+    var mf = moment(f_noti, "HH:mm:ss").diff(moment(startDate, "HH:mm:ss"));
+    var hf = moment.duration(mf);
+    //Computation from the time boss was set to 6:00 PM
+    var ms = moment(s_noti, "HH:mm:ss").diff(moment(startDate, "HH:mm:ss"));
+    var hs = moment.duration(ms);
+
+    //Computed number of milliseconds for the first post
+    var calc_f = Math.floor(hf.asHours()) + moment.utc(mf)
+    var display_f = Math.floor(hf.asHours()) + moment.utc(mf).format(":mm:ss");
+    //Computed number of milliseconds for the second post
+    var calc_s = Math.floor(hs.asHours()) + moment.utc(ms)
+    var display_s = Math.floor(hs.asHours()) + moment.utc(ms).format(":mm:ss");
 
     // between 6 PM and 11 pm respectively
     if (hour >= 0 && hour <= 17) {
-        const stbs = args;
-        var boss, lvl, bsimg, condition;
-        switch (stbs[0]) {
-            case 'padrino':
-                bsimg = 'https://i.imgur.com/np0XeKg.png'
-                break;
-            case 'emperor':
-                bsimg = 'https://i.imgur.com/cRA80kv.png'
-                break;
-            case 'ganesha':
-                bsimg = 'https://i.imgur.com/zDyGxFb.png'
-                break;
-            case 'yae':
-                bsimg = 'https://i.imgur.com/wvSfTkr.png'
-                break;
-            case 'bushi':
-                bsimg = 'https://i.imgur.com/tzxM9XE.png'
-                break;
-        }
 
-        if (stbs[0] === 'yae' && stbs[1] === 'sakura') {
-            boss = 'Yae Sakura';
-            lvl = stbs[2];
-            condition = '1';
-            console.log(`${boss}\nCondition 1 selected`);
-        } else if (stbs[0] === 'bushi' || stbs[0] === 'padrino' || stbs[0] === 'ganesha' || stbs[0] === 'emperor') {
-            boss = stbs[0].charAt(0).toUpperCase() + stbs[0].substring(1);
-            lvl = stbs[1];
-            condition = '1'
-            console.log(`${boss}\nCondition 2 selected`);
+        if (message.member.roles.find("name", "Vice Admirals") || message.member.roles.find("name", "Admiral")) {
+            const stbs = args;
+            var boss, lvl, bsimg, condition;
+            switch (stbs[0]) {
+                case 'padrino':
+                    bsimg = 'https://i.imgur.com/np0XeKg.png'
+                    break;
+                case 'emperor':
+                    bsimg = 'https://i.imgur.com/cRA80kv.png'
+                    break;
+                case 'ganesha':
+                    bsimg = 'https://i.imgur.com/zDyGxFb.png'
+                    break;
+                case 'yae':
+                    bsimg = 'https://i.imgur.com/wvSfTkr.png'
+                    break;
+                case 'bushi':
+                    bsimg = 'https://i.imgur.com/tzxM9XE.png'
+                    break;
+            }
+
+            if (stbs[0] === 'yae' && stbs[1] === 'sakura') {
+                boss = 'Yae Sakura';
+                lvl = stbs[2];
+                condition = '1';
+                console.log(`${boss}\nCondition 1 selected`);
+            } else if (stbs[0] === 'bushi' || stbs[0] === 'padrino' || stbs[0] === 'ganesha' || stbs[0] === 'emperor') {
+                boss = stbs[0].charAt(0).toUpperCase() + stbs[0].substring(1);
+                lvl = stbs[1];
+                condition = '1'
+                console.log(`${boss}\nCondition 2 selected`);
+            } else {
+                condition = '0'
+                console.log(`${boss}\nCondition 4 selected`);
+            }
+
+            const bossEmb = new Discord.RichEmbed()
+                .setColor(0x2c2f33)
+                .setTitle('Next Boss has been set up!')
+                .setAuthor('Boss Invasion Alert!', 'https://i.imgur.com/QrJKwNl.png', ' ')
+                .setDescription(`**${boss}**\nLevel ${lvl}`)
+                .setThumbnail('https://i.imgur.com/JzDnCGJ.png')
+                .addField('Post details', `setup by: ${message.member.displayName} on ${startDate}\nExpect an alert at ${display_f} and ${display_s}`)
+                //.addBlankField()
+                .setImage(bsimg)
+                .setTimestamp()
+                .setFooter('Diamond Club Armada', 'https://i.imgur.com/FpIimN1.png');
+            switch (condition) {
+                case '1':
+                    message.channel.sendEmbed(bossEmb);
+                    //Fist post trigger
+                    setTimeout(delay1 => {
+                        const firstEmb = new Discord.RichEmbed()
+                            .setColor(0xcccc00)
+                            .setTitle('Next Boss has been set up!')
+                            .setAuthor('Boss Invasion Alert!', 'https://i.imgur.com/QrJKwNl.png', ' ')
+                            .setDescription(`**${boss}**\nLevel ${lvl}\nGame Starts in 1 hour`)
+                            .setThumbnail('https://i.imgur.com/JzDnCGJ.png')
+                            .setImage(bsimg)
+                            .setTimestamp()
+                            .setFooter('Diamond Club Armada', 'https://i.imgur.com/FpIimN1.png');
+
+                        message.channel.send("<@&621558338005630978> Get ready!!!");
+                        homu.channels.get('621547605138341898').send("<@&621558338005630978> Get ready!!!");
+                        homu.channels.get('621547605138341898').sendEmbed(firstEmb);
+                    }, calc_f);
+                    //Second post trigger
+                    setTimeout(delay2 => {
+                        const SecEmb = new Discord.RichEmbed()
+                            .setColor(0xb20000)
+                            .setTitle('Next Boss has been set up!')
+                            .setAuthor('Boss Invasion Alert!', 'https://i.imgur.com/QrJKwNl.png', ' ')
+                            .setDescription(`**${boss}**\nLevel ${lvl}\nBoss Invasion Starts Now\nGood luck!`)
+                            .setThumbnail('https://i.imgur.com/JzDnCGJ.png')
+                            .setImage(bsimg)
+                            .setTimestamp()
+                            .setFooter('Diamond Club Armada', 'https://i.imgur.com/FpIimN1.png');
+
+                            homu.channels.get('621547605138341898').send("<@&621558338005630978> It's Go time!");
+                        homu.channels.get('621547605138341898').sendEmbed(SecEmb);
+                    }, calc_s);
+
+                    return;
+                default:
+                    message.channel.send('Boss record not found. please try again...');
+                    return;
+            }
         } else {
-            condition = '0'
-            console.log(`${boss}\nCondition 4 selected`);
+            message.channel.send('Only Authorized personnel can use this command.\nCome back later, if you have permission...');// not vip
         }
 
-        const bossEmb = new Discord.RichEmbed()
-            .setColor(0x2c2f33)
-            .setTitle('Next Boss has been set up!')
-            .setAuthor('Boss Invasion Alert!', 'https://i.imgur.com/QrJKwNl.png', ' ')
-            .setDescription(`**${boss}**\nLevel ${lvl}`)
-            .setThumbnail('https://i.imgur.com/JzDnCGJ.png')
-            .addField('this is just a sample', `something something something something\nsetup by: ${message.member.displayName}`)
-            .addBlankField()
-            .setImage(bsimg)
-            .setTimestamp()
-            .setFooter('Diamond Club Armada', 'https://i.imgur.com/FpIimN1.png');
-        switch (condition) {
-            case '1':
-                message.channel.sendEmbed(bossEmb);
-                return;
-            case "0":
-                message.channel.send('Boss record not found. please try again...');
-                return;
-        }
+
 
     } else {
         message.channel.send('Boss Invasion is still on going.\nYou can not set the boss yet.');
