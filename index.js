@@ -5,6 +5,8 @@ const Enmap = require('enmap');
 const homu = new Discord.Client();
 homu.collection = new Discord.Collection();
 homu.commands = new Enmap();
+homu.jmem = require('./json/member.json')
+homu.jstud = require('./json/student.json');
 const { token } = require('./config.js');
 
 /* const config = {
