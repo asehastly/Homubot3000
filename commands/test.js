@@ -24,13 +24,16 @@ exports.run = (homu, message, args) => {
             .addField('Joined Discord:', `${DateCreate}`, true)
             .addField(`Joined ${message.guild.name}:`, `${DateJoin}`, true)
             .addField('Roles:',gmem.roles.map(r => `${r}`).join(' | '))
-            .addField('Game ID:', "XXXXXXXX", true)
-            .addField('In-Game Name:', "anonymous", true)
+            //.addField('Age:', "35", true)
+            //.addField('Country of Origin:', "4chan", true)
+            //.addField('Nationality:', "anonymous", true)
+            .addField('In-game name:', "アーセハスリー<>", true)
+            .addField('Game ID:', "13688079", true)
             //.addField('[Insert detail name here]:', "[insert detail here]", true)
-            .setFooter('Diamond Club Armada', 'https://i.imgur.com/FpIimN1.png');
+            .setFooter('DiamondClub Armada | 1034165 SEA', 'https://i.imgur.com/FpIimN1.png');
         
         //message.delete();
-        homu.channels.get('621559026228133908').sendEmbed(memEMB);
+        message.channel.sendEmbed(memEMB);
     
     if(message.member.roles.find("name", "Vice Admirals") || message.member.roles.find("name", "Admiral")){
         message.channel.send("Yo' Admin");// Rest of your code
