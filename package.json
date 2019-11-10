@@ -17,7 +17,8 @@
     "enmap": "^5.2.1",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.27",
-    "node": "^12.12.0"
+    "node": "^12.12.0",
+    "sqlite3": "^4.1.0"
   },
   "keywords": [
     "heroku",
