@@ -9,7 +9,8 @@ homu.collection = new Discord.Collection();
 homu.commands = new Enmap();
 homu.jmem = require('./json/member.json')
 homu.jstud = require('./json/student.json');
-homu.boss = require('./json/boss.json')
+homu.boss = require('./json/boss.json');
+homu.config = require('./json/config.json');
 const { token } = require('./config.js');
 
 /* const config = {
