@@ -3,6 +3,7 @@ const fs = module.require('fs');
 exports.run = (homu, message, args) => {
     const Discord = require('discord.js');
     const moment = require('moment-timezone');
+    const server = message.guild.id;
 
     var hour = moment().tz('Asia/Manila').format('HH');
     var local = moment();
@@ -60,7 +61,7 @@ exports.run = (homu, message, args) => {
                 console.log(`${boss}\nCondition 4 selected`);
             }
 
-            homu.boss['current'] = {
+            homu.boss[server] = {
                 name: boss,
                 level: lvl,
                 image: bsimg,
