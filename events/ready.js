@@ -1,3 +1,4 @@
+const Discord = module.require('discord.js');
 const fs = module.require('fs');
 const moment = module.require('moment-timezone');
 
@@ -10,10 +11,10 @@ module.exports = homu => {
         console.log(' ');
     },8000)
     homu.setInterval(() => {
-        let boss = homu.boss['current'].name;
-        let lvl = homu.boss['current'].level;
-        let bsimg = homu.boss['current'].image;
-        let stat = homu.boss['current'].status;
+        let boss = homu.boss[server].name;
+        let lvl = homu.boss[server].level;
+        let bsimg = homu.boss[server].image;
+        let stat = homu.boss[server].status;
 
 
         if(parseInt(stat) === 1) {
@@ -35,7 +36,7 @@ module.exports = homu => {
             var calc_s = Math.floor(hs.asHours()) + moment.utc(ms)
             var display_s = Math.floor(hs.asHours()) + moment.utc(ms).format(":mm:ss");
              //Fist post trigger
-            homu.channels.get('642033909311209483').send(`BI data found. now setting up setTimeouts\nFirst: ${display_f}\nSecond ${display_s}`);
+            console.log(`BI data found. Now setting variables...\nBoss: ${boss} Level: ${lvl}\nImage URL: ${bsimg}\nnow setting up setTimeouts\nFirst: ${display_f}\nSecond ${display_s}`);
             setTimeout(delay1 => {
                 const firstEmb = new Discord.RichEmbed()
                     .setColor(0xcccc00)
@@ -48,6 +49,7 @@ module.exports = homu => {
                     .setFooter('Diamond Club Armada', 'https://i.imgur.com/FpIimN1.png');
 
                 //message.channel.send("<@&621558338005630978> Get ready!!!");
+				console.log('First timer execute');
                 homu.channels.get('621547605138341898').send("<@&621558338005630978> Get ready!!!");
                 homu.channels.get('621547605138341898').sendEmbed(firstEmb);
             }, calc_f);
@@ -62,15 +64,18 @@ module.exports = homu => {
                     .setImage(bsimg)
                     .setTimestamp()
                     .setFooter('Diamond Club Armada', 'https://i.imgur.com/FpIimN1.png');
-
+					
+                console.log('Second timer execute');
                 homu.channels.get('621547605138341898').send("<@&621558338005630978> It's Go time!");
                 homu.channels.get('621547605138341898').sendEmbed(SecEmb);
-                delete homu.boss['current'];
+				console.log('prepairing to delete boss.json entires');
+                delete homu.boss[server];
                 
                 fs.writeFile('./json/boss.json', JSON.stringify(homu.boss), err => {
                     if(err) throw err;
-                    console.log('Boss Invasion Alert Finish')
-                    stat = '0'
+                    stat = 0;
+                    if (!homu.jmem.hasOwnProperty(user.id))
+                    console.log(`BI Procedure complete.\nboss.jason has been cleared.\nNow waiting for data in the next 12 hours.\nHave a good day.\nstat value: ${stat}`);
                 })
             }, calc_s);
         } else {
