@@ -2,8 +2,8 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const Enmap = require('enmap');
-const SQLite = require("better-sqlite3");
-const sqmem = new SQLite('./member.sqlite');
+//const SQLite = require("better-sqlite3");
+//const sqmem = new SQLite('./member.sqlite');
 const homu = new Discord.Client();
 homu.collection = new Discord.Collection();
 homu.commands = new Enmap();
