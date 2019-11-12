@@ -1,9 +1,23 @@
 const fs = module.require('fs');
+const mysql = module.require('mysql');
 
 exports.run = (homu, message, args) => {
     const Discord = require('discord.js');
     const moment = require('moment-timezone');
     const server = message.guild.id;
+
+    var con = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: 'D!e in_@_fIr3<>',
+        database: 'homu'
+    });
+    
+    con.connect(err => {
+        if(err) throw err;
+        console.log('connected to homu database');
+        //con.query('SHOW TABLES', console.log);
+    });
 
     var hour = moment().tz('Asia/Manila').format('HH');
     var local = moment();
@@ -27,7 +41,7 @@ exports.run = (homu, message, args) => {
 
         if (message.member.roles.find("name", "Vice Admirals") || message.member.roles.find("name", "Admiral")) {
             const stbs = args;
-            var boss, lvl, bsimg, condition;
+            var name, lvl, bsimg, condition;
             switch (stbs[0]) {
                 case 'padrino':
                     bsimg = 'https://i.imgur.com/np0XeKg.png'
@@ -47,34 +61,39 @@ exports.run = (homu, message, args) => {
             }
 
             if (stbs[0] === 'yae' && stbs[1] === 'sakura') {
-                boss = 'Yae Sakura';
+                name = 'Yae Sakura';
                 lvl = stbs[2];
                 condition = '1';
-                console.log(`${boss}\nCondition 1 selected`);
+                console.log(`${name}\nCondition 1 selected`);
             } else if (stbs[0] === 'bushi' || stbs[0] === 'padrino' || stbs[0] === 'ganesha' || stbs[0] === 'emperor') {
-                boss = stbs[0].charAt(0).toUpperCase() + stbs[0].substring(1);
+                name = stbs[0].charAt(0).toUpperCase() + stbs[0].substring(1);
                 lvl = stbs[1];
                 condition = '1'
-                console.log(`${boss}\nCondition 2 selected`);
+                console.log(`${name}\nCondition 2 selected`);
             } else {
                 condition = '0'
-                console.log(`${boss}\nCondition 4 selected`);
+                console.log(`${name}\nCondition 4 selected`);
             }
 
-            homu.boss[server] = {
-                name: boss,
-                level: lvl,
-                image: bsimg,
-                status: condition
-            }
-
-            fs.writeFile('./json/boss.json', JSON.stringify(homu.boss, null, 4), err => {
+            con.query(`SELECT * FROM boss WHERE id = '${server}'`, (err, rows) => {
                 if(err) throw err;
-                const bossEmb = new Discord.RichEmbed()
+                
+                let sql;
+                if(rows.length < 1) {
+                    sql = `INSERT INTO boss (id, name, level, image, stat) VALUES ('${server}', '${name}', '${parseInt(lvl)}', '${bsimg}', 'true')`;
+                } else {
+                    let boss = rows[0].name;
+                    sql = `UPDATE boss SET name = '${name}', level = '${parseInt(lvl)}', image = '${bsimg}', stat = 'true' WHERE id = '${server}'`;
+                }
+
+                con.query(sql,console.log);
+            })
+
+            const bossEmb = new Discord.RichEmbed()
                 .setColor(0x2c2f33)
                 .setTitle('Next Boss has been set up!')
                 .setAuthor('Boss Invasion Alert!', 'https://i.imgur.com/QrJKwNl.png', ' ')
-                .setDescription(`**${boss}**\nLevel ${lvl}`)
+                .setDescription(`**${name}**\nLevel ${lvl}`)
                 .setThumbnail('https://i.imgur.com/JzDnCGJ.png')
                 .addField('Post details', `setup by: ${message.member.displayName} on ${startDate}\nExpect an alert at ${display_f} and ${display_s}`)
                 //.addBlankField()
@@ -89,7 +108,11 @@ exports.run = (homu, message, args) => {
                         message.channel.send('Boss record not found. please try again...');
                     return;
                 }
-            })
+
+           /*  fs.writeFile('./json/boss.json', JSON.stringify(homu.boss, null, 4), err => {
+                if(err) throw err;
+                
+            }) */
 
         } else {
             message.channel.send('Only Authorized personnel can use this command.\nCome back later, if you have permission...');// not vip
