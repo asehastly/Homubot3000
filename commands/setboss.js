@@ -1,23 +1,11 @@
 const fs = module.require('fs');
 const mysql = module.require('mysql');
+const { con } = require('../config.js');
 
 exports.run = (homu, message, args) => {
     const Discord = require('discord.js');
     const moment = require('moment-timezone');
     const server = message.guild.id;
-
-    var con = mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: 'D!e in_@_fIr3<>',
-        database: 'homu'
-    });
-    
-    con.connect(err => {
-        if(err) throw err;
-        console.log('connected to homu database');
-        //con.query('SHOW TABLES', console.log);
-    });
 
     var hour = moment().tz('Asia/Manila').format('HH');
     var local = moment();
