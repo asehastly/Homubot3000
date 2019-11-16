@@ -1,6 +1,6 @@
 const Discord = module.require('discord.js');
-const mysql = module.require('mysql');
-const biTime = module.require('../global/database.js');
+const moment = module.require('moment-timezone');
+const biTime = module.require('../global/bitimer.js');
 
 
 exports.run = (homu, message, args) => {
@@ -9,7 +9,11 @@ exports.run = (homu, message, args) => {
 
     switch(input[0]) {
         case '1':
-            message.channel.send(biTime.startTime());
+            let time = biTime.startTime();
+            let from = moment().tz('Asia/Manila').format('h:mm a Z');
+
+            message.channel.send(from);
+            message.channel.send(time);
         break;
         case '2':
             message.channel.send(biTime.display1());
