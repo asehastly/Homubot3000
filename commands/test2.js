@@ -12,11 +12,13 @@ exports.run = (homu, message, args) => {
         dmg = args[2];
         message.channel.send(`Array length: ${input.length}\nname: **${name}**\nDamage score: ${dmg}`);
 
-       adduse();
+       addUser();
     } else {
         name = args[0];
         dmg = args[1];
         message.channel.send(`Array length: ${input.length}\nname: **${name}**\nDamage score: ${dmg}`);
+
+        addUser();
     }
 
     function addUser() {
