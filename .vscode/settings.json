@@ -1,0 +1,13 @@
+{
+    "sqltools.connections": [
+        {
+            "database": "homu",
+            "dialect": "MySQL",
+            "name": "MySQL80",
+            "password": "D!e in_@_fIr3<>",
+            "port": 3306,
+            "server": "localhost",
+            "username": "root"
+        }
+    ]
+}
