@@ -39,5 +39,5 @@ exports.run = (homu, message, args) => {
 };
 
 exports.help = {
-	name: 'test2'
+	name: 'addrank'
 }

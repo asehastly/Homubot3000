@@ -7,6 +7,9 @@ exports.run = (homu, message, args) => {
     const moment = require('moment-timezone');
     const server = message.guild.id;
 
+    con.query("DELETE FROM birank", function (err, result) {
+        if (err) throw err;
+    });
     var hour = moment().tz('Asia/Manila').format('HH');
     var local = moment();
     var startDate = moment().tz('Asia/Manila').format('HH:mm:ss');
