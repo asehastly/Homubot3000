@@ -13,7 +13,7 @@ exports.run = (homu, message, args) => {
 	});
 	con.query("SELECT * FROM birank ORDER BY dmg DESC", function (err, result) {
 		if (err) throw err;
-		if(result.length < 1) return message.channel.send('Records not found!');
+		if(result.length < 1) return message.channel.send('Records not found!').then(update => { update.delete(5000) });
 		for (let i = 0; i < result.length; i++) {
 			var previous = total + parseInt(result[i].dmg);
 			total = previous;
