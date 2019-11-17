@@ -5,26 +5,27 @@ const biTime = module.require('../global/bitimer.js');
 
 exports.run = (homu, message, args) => {
     const input = args;
-    console.log(input)
+    var output= biTime;
+    console.log(`User input ${input}\nValues of biTime Function ${output}`)
 
-    switch(input[0]) {
+    /* switch(input[0]) {
         case '1':
-            let time = biTime.startTime();
+            let time = startDate;
             let from = moment().tz('Asia/Manila').format('h:mm a Z');
 
             message.channel.send(from);
             message.channel.send(time);
         break;
         case '2':
-            message.channel.send(biTime.display1());
+            message.channel.send(display_f);
         break;
         case '3':
-            message.channel.send(biTime.display2());
+            message.channel.send(display_s);
         break;
         default:
             message.channel.send('wah???');
         break;
-    }
+    } */
 };
 
 exports.help = {
