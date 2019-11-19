@@ -1,25 +1,13 @@
 const Discord = module.require('discord.js');
 const fs = module.require('fs');
-const moment = module.require('moment-timezone');
+const biconfig = require('../global/bitimer.js');
 
 module.exports = homu => {
     console.log(`${homu.user.tag} logging in...`);
-    setTimeout(homuRun => {
-        console.log(`${homu.user.tag} logged and ready to go!`);
-    },7000)
-    setTimeout(homuRun => {
-        console.log(' ');
-    },8000)
+    setTimeout(homuRun => {console.log(`${homu.user.tag} logged and ready to go!\n`);},7000)
+    
     homu.setInterval(() => {
-        let boss = homu.boss[server].name;
-        let lvl = homu.boss[server].level;
-        let bsimg = homu.boss[server].image;
-        let stat = homu.boss[server].status;
-
-
         if(parseInt(stat) === 1) {
-            //Starting time
-            
              //Fist post trigger
             console.log(`BI data found. Now setting variables...\nBoss: ${boss} Level: ${lvl}\nImage URL: ${bsimg}\nnow setting up setTimeouts\nFirst: ${display_f}\nSecond ${display_s}`);
             setTimeout(delay1 => {
@@ -37,7 +25,7 @@ module.exports = homu => {
 				console.log('First timer execute');
                 homu.channels.get('621547605138341898').send("<@&621558338005630978> Get ready!!!");
                 homu.channels.get('621547605138341898').sendEmbed(firstEmb);
-            }, calc_f);
+            }, biconfig.calc1());
             //Second post trigger
             setTimeout(delay2 => {
                 const SecEmb = new Discord.RichEmbed()
@@ -62,7 +50,7 @@ module.exports = homu => {
                     if (!homu.jmem.hasOwnProperty(user.id))
                     console.log(`BI Procedure complete.\nboss.jason has been cleared.\nNow waiting for data in the next 12 hours.\nHave a good day.\nstat value: ${stat}`);
                 })
-            }, calc_s);
+            }, biconfig.calc2());
         } else {
             return;
         }
