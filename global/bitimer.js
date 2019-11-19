@@ -1,3 +1,4 @@
+const Discord = module.require('discord.js');
 const moment = module.require('moment-timezone');
 
 module.exports = {
@@ -41,5 +42,17 @@ module.exports = {
         let display_s = Math.floor(hs.asHours()) + moment.utc(ms).format(":mm:ss");
         console.log(set);
         return display_s;
+    },
+    Post: function(boss, lvl, bsimg) {
+        const emb = new Discord.RichEmbed()
+           .setColor(0xcccc00)
+           .setTitle('Next Boss has been set up!')
+           .setAuthor('Boss Invasion Alert!', 'https://i.imgur.com/QrJKwNl.png', ' ')
+           .setDescription(`**${boss}**\nLevel ${lvl}\nGame Starts in 1 hour`)
+           .setThumbnail('https://i.imgur.com/JzDnCGJ.png')
+           .setImage(bsimg)
+           .setTimestamp()
+           .setFooter('Diamond Club Armada', 'https://i.imgur.com/FpIimN1.png');
+        return {bossEmb: emb};
     }
 }
