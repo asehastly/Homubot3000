@@ -5,7 +5,8 @@ let con = mysql.createConnection({
     host: process.env.HOST,
     user: process.env.USER,
     password: process.env.PASSWORD,
-    database: 'homu'
+    database: 'homu',
+    charset : 'utf8mb4'
 });
 
 con.connect(err => {
