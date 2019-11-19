@@ -1,41 +1,45 @@
 const moment = module.require('moment-timezone');
 
-function process() {
-    //var local = moment();
-    var startDate = moment().tz('Asia/Manila').format('HH:mm:ss');
-    var f_noti = moment('17:00:00', 'HH:mm:ss').tz('Asia/Manila').format('HH:mm:ss');
-    var s_noti = moment('18:00:00', 'HH:mm:ss').tz('Asia/Manila').format('HH:mm:ss');
-    //Computation from the time boss was set to 5:00 PM
-    var mf = moment(f_noti, "HH:mm:ss").diff(moment(startDate, "HH:mm:ss"));
-    var hf = moment.duration(mf);
-    //Computation from the time boss was set to 6:00 PM
-    var ms = moment(s_noti, "HH:mm:ss").diff(moment(startDate, "HH:mm:ss"));
-    var hs = moment.duration(ms);
-    //Computed number of milliseconds for the first post
-    var calc_f = Math.floor(hf.asHours()) + moment.utc(mf)
-    var display_f = Math.floor(hf.asHours()) + moment.utc(mf).format(":mm:ss");
-    //Computed number of milliseconds for the second post
-    var calc_s = Math.floor(hs.asHours()) + moment.utc(ms)
-    var display_s = Math.floor(hs.asHours()) + moment.utc(ms).format(":mm:ss");
-    return {startDate, calc_f,calc_s, display_f, display_s}
-}
-
-
-/* function startTime() {
-    return process.startDate;
-}
-function calc1() {
-    return calc_f;
-}
-function calc2() {
-    return calc_s;
-}
-function display1() {
-    return display_f;
-}
-function display2() {
-    return display_s;
-} */
 module.exports = {
-    process
+    startTime: function() {
+        let startDate = moment().tz('Asia/Manila').format('HH:mm:ss');
+        let f_noti = moment('17:00:00', 'HH:mm:ss').tz('Asia/Manila').format('HH:mm:ss');
+        let s_noti = moment('18:00:00', 'HH:mm:ss').tz('Asia/Manila').format('HH:mm:ss');
+        return {ct: startDate,fet: f_noti, set: s_noti};
+    },
+    calc1: function() { //Calculates the miliseconds for the first post
+        let ct = this.startTime().ct;
+        let fet = this.startTime().fet;
+        let mf = moment(fet, "HH:mm:ss").diff(moment(ct, "HH:mm:ss"));
+        let hf = moment.duration(mf);
+        let calc_f = Math.floor(hf.asHours()) + moment.utc(mf)
+        return calc_f;
+    },
+    calc2: function() { //Calculates the miliseconds for the second post
+        let ct = this.startTime().ct;
+        let set = this.startTime().set;
+        let ms = moment(set, "HH:mm:ss").diff(moment(ct, "HH:mm:ss"));
+        let hs = moment.duration(ms);
+        let calc_s = Math.floor(hs.asHours()) + moment.utc(ms);
+        return calc_s;
+        
+    },
+    display1: function() { //Displays the calulated from the first post
+        let ct = this.startTime().ct;
+        let fet = this.startTime().fet;
+        let mf = moment(fet, "HH:mm:ss").diff(moment(ct, "HH:mm:ss"));
+        let hf = moment.duration(mf);
+        let display_f = Math.floor(hf.asHours()) + moment.utc(mf).format(":mm:ss");
+        return display_f;
+        
+    },
+    display2: function() { //Displays the calulated from the second post
+        let ct = this.startTime().ct;
+        let set = this.startTime().set;
+        let ms = moment(set, "HH:mm:ss").diff(moment(ct, "HH:mm:ss"));
+        let hs = moment.duration(ms);
+        let display_s = Math.floor(hs.asHours()) + moment.utc(ms).format(":mm:ss");
+        console.log(set);
+        return display_s;
+    }
 }
