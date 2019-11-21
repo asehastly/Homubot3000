@@ -43,20 +43,25 @@ module.exports = {
         console.log(set);
         return display_s;
     },
-    Post: function(boss, lvl, bsimg, stat) {
+    post: function(boss, lvl, bsimg, stat) {
+        console.log(`${boss}   ${lvl}\n${bsimg}\n${stat}\n`);
+        name = boss;
+        level = lvl;
+        image = bsimg;
+        status = stat;
         const emb = new Discord.RichEmbed()
            .setColor(0xcccc00)
            .setTitle('Next Boss has been set up!')
            .setAuthor('Boss Invasion Alert!', 'https://i.imgur.com/QrJKwNl.png', ' ')
-           if(parseInt(stat) === 1) {
-            emb.setDescription(`**${boss}**\nLevel ${lvl}\nGame Starts in 1 hour`)
+           if(parseInt(status) === 1) {
+            emb.setDescription(`**${name}**\nLevel ${level}\nGame Starts in 1 hour`)
            } else {
-            emb.setDescription(`**${boss}**\nLevel ${lvl}\nBoss Invasion starts now.`)
+            emb.setDescription(`**${name}**\nLevel ${level}\nBoss Invasion starts now.`)
            };
            emb.setThumbnail('https://i.imgur.com/JzDnCGJ.png')
-           emb.setImage(bsimg)
+           emb.setImage(image)
            emb.setTimestamp()
            emb.setFooter('Diamond Club Armada', 'https://i.imgur.com/FpIimN1.png');
-        return {bossEmb: emb};
+        return emb;
     }
 }
