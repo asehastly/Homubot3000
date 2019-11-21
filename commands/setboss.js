@@ -1,5 +1,6 @@
 const fs = module.require('fs');
 const mysql = module.require('mysql');
+const moment = module.require('moment-timezone');
 const { con } = require('../config.js');
 
 exports.run = (homu, message, args) => {
