@@ -8,20 +8,23 @@ exports.run = (homu, message, args) => {
     var startTime = biTime.startTime().ct;
     var display_f = biTime.calc1();
     var display_s = biTime.calc2();
+    var boss = 'bushi';
+    var lvl = 55;
+    var bsimg = 'https://i.imgur.com/tzxM9XE.png';
+    var stat = 1;
     console.log(`${startTime}\n${display_f}\n${display_s}\n`)
 
     //message.channel.send(output).then(update => { update.delete(10000) });
     switch(input[0]) {
         case '1':
-            let time = startTime;
-            let from = moment().tz('Asia/Manila').format('h:mm a Z');
             message.delete();
-            message.channel.send(from).then(update => { update.delete(10000) });
-            message.channel.send(time).then(update => { update.delete(10000) });
+            homu.channels.get('621547605138341898').sendEmbed(biTime.post(boss, lvl, bsimg, stat));
+            stat = 2;
         break;
         case '2':
             message.delete();
-            message.channel.send(`Time left before 5:00 PM is ${biTime.display1()}\n${biTime.calc1()} in miliseconds`).then(update => { update.delete(10000) });
+            homu.channels.get('621547605138341898').sendEmbed(biTime.post(boss, lvl, bsimg, stat));
+            stat = 1;
         break;
         case '3':
             message.delete();
