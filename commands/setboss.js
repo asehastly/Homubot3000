@@ -72,10 +72,10 @@ exports.run = (homu, message, args) => {
                 
                 let sql;
                 if(rows.length < 1) {
-                    sql = `INSERT INTO boss (id, name, level, image, stat) VALUES ('${server}', '${name}', '${parseInt(lvl)}', '${bsimg}', 'true')`;
+                    sql = `INSERT INTO boss (id, name, level, image, stat) VALUES ('${server}', '${name}', '${parseInt(lvl)}', '${bsimg}', '1')`;
                 } else {
                     let boss = rows[0].name;
-                    sql = `UPDATE boss SET name = '${name}', level = '${parseInt(lvl)}', image = '${bsimg}', stat = 'true' WHERE id = '${server}'`;
+                    sql = `UPDATE boss SET name = '${name}', level = '${parseInt(lvl)}', image = '${bsimg}', stat = '1' WHERE id = '${server}'`;
                 }
 
                 con.query(sql,console.log);
