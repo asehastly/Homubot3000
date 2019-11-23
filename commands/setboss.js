@@ -1,117 +1,158 @@
-const fs = module.require('fs');
+
 const mysql = module.require('mysql');
 const moment = module.require('moment-timezone');
 const { con } = require('../config.js');
+const biconfig = require('../global/bitimer.js');
 
 exports.run = (homu, message, args) => {
     const Discord = require('discord.js');
     const moment = require('moment-timezone');
     const server = message.guild.id;
 
-    con.query("DELETE FROM birank", function (err, result) {
-        if (err) throw err;
-    });
     var hour = moment().tz('Asia/Manila').format('HH');
-    var local = moment();
-    var startDate = moment().tz('Asia/Manila').format('HH:mm:ss');
-    var f_noti = moment('9:00:00', 'HH:mm:ss').tz('Asia/Manila').format('HH:mm:ss');
-    var s_noti = moment('10:00:00', 'HH:mm:ss').tz('Asia/Manila').format('HH:mm:ss');
-    //Computation from the time boss was set to 5:00 PM
-    var mf = moment(f_noti, "HH:mm:ss").diff(moment(startDate, "HH:mm:ss"));
-    var hf = moment.duration(mf);
-    //Computation from the time boss was set to 6:00 PM
-    var ms = moment(s_noti, "HH:mm:ss").diff(moment(startDate, "HH:mm:ss"));
-    var hs = moment.duration(ms);
-    //Computed number of milliseconds for the first post
-    var calc_f = Math.floor(hf.asHours()) + moment.utc(mf)
-    var display_f = Math.floor(hf.asHours()) + moment.utc(mf).format(":mm:ss");
-    //Computed number of milliseconds for the second post
-    var calc_s = Math.floor(hs.asHours()) + moment.utc(ms)
-    var display_s = Math.floor(hs.asHours()) + moment.utc(ms).format(":mm:ss");
+    var boss, lvl, bsimg, stat, pstat;
+
     // between 6 PM and 11 pm respectively
-    if (hour >= 0 && hour <= 17) {
-
-        if (message.member.roles.find("name", "Vice Admirals") || message.member.roles.find("name", "Admiral")) {
-            const stbs = args;
-            var name, lvl, bsimg, condition;
-            switch (stbs[0]) {
-                case 'padrino':
-                    bsimg = 'https://i.imgur.com/np0XeKg.png'
-                    break;
-                case 'emperor':
-                    bsimg = 'https://i.imgur.com/cRA80kv.png'
-                    break;
-                case 'ganesha':
-                    bsimg = 'https://i.imgur.com/zDyGxFb.png'
-                    break;
-                case 'yae':
-                    bsimg = 'https://i.imgur.com/wvSfTkr.png'
-                    break;
-                case 'bushi':
-                    bsimg = 'https://i.imgur.com/tzxM9XE.png'
-                    break;
-            }
-
-            if (stbs[0] === 'yae' && stbs[1] === 'sakura') {
-                name = 'Yae Sakura';
-                lvl = stbs[2];
-                condition = '1';
-                console.log(`${name}\nCondition 1 selected`);
-            } else if (stbs[0] === 'bushi' || stbs[0] === 'padrino' || stbs[0] === 'ganesha' || stbs[0] === 'emperor') {
-                name = stbs[0].charAt(0).toUpperCase() + stbs[0].substring(1);
-                lvl = stbs[1];
-                condition = '1'
-                console.log(`${name}\nCondition 2 selected`);
+    switch(args[0]) {
+        case 'on':
+            //manual trigger for boss alert
+            if (hour >= 0 && hour <= 17) {
+                let id = '621517685750235157'
+                con.query(`SELECT * FROM boss WHERE id = ${id}`, (err, row) => {
+                    if(err) throw err;
+                    if(row.length < 1) return console.log('Table Boss is empty');
+                    boss = row[0].name;
+                    lvl = row[0].level;
+                    bsimg = row[0].image;
+                    stat = row[0].stat;
+                    pstat = row[0].pstat;
+                    console.log(stat);
+                    if(!stat) {
+                        console.log('*WARNING*\nDatbase is empty!');
+                    }else if(parseInt(pstat) === 1){
+                        console.log('Post already been activated');
+                    }else if(parseInt(stat) === 1) {
+                        //if Boss name exist
+                        console.log(`Boss ${row[0].name} has been set!`);
+                        setTimeout(delay1 => {
+                            console.log('First timer execute');
+                            con.query(`UPDATE boss SET pstat = '1' WHERE id = '${id}'`, err => {
+                                if(err) throw err;
+                            });
+                            homu.channels.get('621547605138341898').send("<@&621558338005630978> Get ready!!!");
+                            homu.channels.get('621547605138341898').sendEmbed(bsEmbed(boss, lvl, bsimg, stat));
+                            stat = 2;
+                        }, biconfig.calc1());
+                        setTimeout(delay2 => {
+                            console.log('Second timer execute');
+                            homu.channels.get('621547605138341898').send("<@&621558338005630978> It's Go time!");
+                            homu.channels.get('621547605138341898').sendEmbed(bsEmbed(boss, lvl, bsimg, stat));
+                            console.log('prepairing to delete database entires');
+                            /* con.query("DELETE FROM boss", function (err, result) {
+                                if (err) throw err;
+                                console.log('Databse has been cleared');
+                            }); */
+                        }, biconfig.calc2());
+                    } else {
+                        console.log('No boss was set');
+                    };
+                });
             } else {
-                condition = '0'
-                console.log(`${name}\nCondition 4 selected`);
-            }
+                console.log('Boss Invasion is still on-going');
+            };
+        break;
+        default:
+            //Code for setting up boss invasion
+            if (hour >= 0 && hour <= 17) {
 
-            con.query(`SELECT * FROM boss WHERE id = '${server}'`, (err, rows) => {
-                if(err) throw err;
-                
-                let sql;
-                if(rows.length < 1) {
-                    sql = `INSERT INTO boss (id, name, level, image, stat) VALUES ('${server}', '${name}', '${parseInt(lvl)}', '${bsimg}', '1')`;
+                if (message.member.roles.find("name", "Vice Admirals") || message.member.roles.find("name", "Admiral")) {
+                    const stbs = args;
+                    var name, lvl, bsimg, condition;
+                    switch (stbs[0]) {
+                        case 'padrino':
+                            bsimg = 'https://i.imgur.com/np0XeKg.png'
+                            break;
+                        case 'emperor':
+                            bsimg = 'https://i.imgur.com/cRA80kv.png'
+                            break;
+                        case 'ganesha':
+                            bsimg = 'https://i.imgur.com/zDyGxFb.png'
+                            break;
+                        case 'yae':
+                            bsimg = 'https://i.imgur.com/wvSfTkr.png'
+                            break;
+                        case 'bushi':
+                            bsimg = 'https://i.imgur.com/tzxM9XE.png'
+                            break;
+                    }
+        
+                    if (stbs[0] === 'yae' && stbs[1] === 'sakura') {
+                        name = 'Yae Sakura';
+                        lvl = stbs[2];
+                        condition = '1';
+                        console.log(`${name}\nCondition 1 selected`);
+                    } else if (stbs[0] === 'bushi' || stbs[0] === 'padrino' || stbs[0] === 'ganesha' || stbs[0] === 'emperor') {
+                        name = stbs[0].charAt(0).toUpperCase() + stbs[0].substring(1);
+                        lvl = stbs[1];
+                        condition = '1'
+                        console.log(`${name}\nCondition 2 selected`);
+                    } else {
+                        condition = '0'
+                        console.log(`${name}\nCondition 4 selected`);
+                    }
+        
+                    con.query("DELETE FROM birank", function (err, result) {
+                        if (err) throw err;
+                        console.log('Database birank has been cleared');
+                    });
+        
+                    con.query(`SELECT * FROM boss WHERE id = '${server}'`, (err, rows) => {
+                        if(err) throw err;
+                        
+                        let sql;
+                        if(rows.length < 1) {
+                            sql = `INSERT INTO boss (id, name, level, image, stat, pstat) VALUES ('${server}', '${name}', '${parseInt(lvl)}', '${bsimg}', '1', '0')`;
+                        } else {
+                            let boss = rows[0].name;
+                            sql = `UPDATE boss SET name = '${name}', level = '${parseInt(lvl)}', image = '${bsimg}', stat = '1' pstat = '0' WHERE id = '${server}'`;
+                        }
+        
+                        con.query(sql,console.log);
+                    });
+        
+                    const bossEmb = new Discord.RichEmbed()
+                        .setColor(0x2c2f33)
+                        .setTitle('Next Boss has been set up!')
+                        .setAuthor('Boss Invasion Alert!', 'https://i.imgur.com/QrJKwNl.png', ' ')
+                        .setDescription(`**${name}**\nLevel ${lvl}`)
+                        .setThumbnail('https://i.imgur.com/JzDnCGJ.png')
+                        .addField('Post details', `setup by: ${message.member.displayName} on ${biconfig.startTime().ct}\nExpect an alert at ${biconfig.display1()} and ${biconfig.display2()}`)
+                        //.addBlankField()
+                        .setImage(bsimg)
+                        .setTimestamp()
+                        .setFooter('Diamond Club Armada', 'https://i.imgur.com/FpIimN1.png');
+                        switch (condition) {
+                            case '1':
+                                message.channel.sendEmbed(bossEmb);
+                            return;
+                            default:
+                                message.channel.send('Boss record not found. please try again...');
+                            return;
+                        }
+        
+                   /*  fs.writeFile('./json/boss.json', JSON.stringify(homu.boss, null, 4), err => {
+                        if(err) throw err;
+                        
+                    }) */
+        
                 } else {
-                    let boss = rows[0].name;
-                    sql = `UPDATE boss SET name = '${name}', level = '${parseInt(lvl)}', image = '${bsimg}', stat = '1' WHERE id = '${server}'`;
+                    message.channel.send('Only Authorized personnel can use this command.\nCome back later, if you have permission...');// not vip
                 }
-
-                con.query(sql,console.log);
-            })
-
-            const bossEmb = new Discord.RichEmbed()
-                .setColor(0x2c2f33)
-                .setTitle('Next Boss has been set up!')
-                .setAuthor('Boss Invasion Alert!', 'https://i.imgur.com/QrJKwNl.png', ' ')
-                .setDescription(`**${name}**\nLevel ${lvl}`)
-                .setThumbnail('https://i.imgur.com/JzDnCGJ.png')
-                .addField('Post details', `setup by: ${message.member.displayName} on ${startDate}\nExpect an alert at ${display_f} and ${display_s}`)
-                //.addBlankField()
-                .setImage(bsimg)
-                .setTimestamp()
-                .setFooter('Diamond Club Armada', 'https://i.imgur.com/FpIimN1.png');
-                switch (condition) {
-                    case '1':
-                        message.channel.sendEmbed(bossEmb);
-                    return;
-                    default:
-                        message.channel.send('Boss record not found. please try again...');
-                    return;
-                }
-
-           /*  fs.writeFile('./json/boss.json', JSON.stringify(homu.boss, null, 4), err => {
-                if(err) throw err;
-                
-            }) */
-
-        } else {
-            message.channel.send('Only Authorized personnel can use this command.\nCome back later, if you have permission...');// not vip
-        }
-
-    } else {
-        message.channel.send('Boss Invasion is still on going.\nYou can not set the boss yet.');
+        
+            } else {
+                message.channel.send('Boss Invasion is still on going.\nYou can not set the boss yet.');
+            }
+        break;
     }
 };
 
