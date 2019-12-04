@@ -40,11 +40,11 @@ module.exports = homu => {
                         console.log('Second timer execute');
                         homu.channels.get('621547605138341898').send("<@&621558338005630978> It's Go time!");
                         homu.channels.get('621547605138341898').sendEmbed(bsEmbed(boss, lvl, bsimg, stat));
-                        console.log('prepairing to delete database entires');
+                        /* console.log('prepairing to delete database entires');
                         con.query("DELETE FROM boss", function (err, result) {
                             if (err) throw err;
                             console.log('Databse has been cleared');
-                        });
+                        }); */
                     }, biconfig.calc2());
                 } else {
                     console.log('No boss was set');
