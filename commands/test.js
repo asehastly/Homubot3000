@@ -5,7 +5,8 @@ const { con } = require('../config.js');
 
 exports.run = (homu, message, args) => {
 	
-	var valkqueue;
+	if(!args[0]) return message.channel.send("Please type the name of the valkyrie you're trying to see.").then(update => { update.delete(7000)});
+	var valkqueue, valkfound, stat;
 	switch(args[0].toLowerCase()) {
 		case 'theresa':
 			valkqueue = 'Teri';
@@ -25,29 +26,44 @@ exports.run = (homu, message, args) => {
 		default:
 			valkqueue = args[0];
 	}
-	//message.delete();
-	for(let i = 0; i < valks.length; i++) {
-		//console.log(`${valks[i].valkName} | ${valks[i].vCode}`);
-		if(valkqueue.toUpperCase() === valks[i].vCode) {
-			let pfp = valks[i].pfp;
-			const emb = new Discord.RichEmbed()
-				.setColor('	#23272a')
-				.setAuthor('Valyrie Information', 'https://i.imgur.com/5ejjwD3.png', valks[i].url)
-				.setTitle(valks[i].valkName)
-				.setThumbnail(pfp[Math.floor(Math.random()*pfp.length)])
-				.addField('Weapon type', valks[i].weap)
-				.addField('Age', valks[i].Age, true)
-				.addField('Birthday', valks[i].DOB, true)
-				.addField('Height', valks[i].Height, true)
-				.addField('Weight', valks[i].Weight, true)
-				.addField('Measurements', valks[i].Measurements)
-				.addField('Bio', valks[i].vBio)
-			message.channel.sendEmbed(emb);
-			console.log(`------------------------------------------------\nUser has selected **${valks[i].vCode}**`);
-			console.log(`${pfp[Math.floor(Math.random()*pfp.length)]}\n------------------------------------------------`);
-		}
-	};
 	
+	const match = valks.find(item => {
+		if(item.vCode === valkqueue.toUpperCase()) {
+			return true;
+		}
+	})
+	message.delete();
+	console.log(match);
+	if(match === undefined) {
+		let concat = args.join(" ");
+		const embFalse = new Discord.RichEmbed()
+		.setColor('	#23272a')
+			.setAuthor('Valyrie Information', 'https://i.imgur.com/5ejjwD3.png')
+			.setTitle(`${concat} was not on the database`)
+			.setDescription("Are you sure you are looking for a **playable** valkyrie?")
+			.setTimestamp()
+			.setFooter('King Homu™ Archives', 'https://i.imgur.com/SuxUzng.png');
+		message.channel.sendEmbed(embFalse).then(update => { update.delete(10000)});
+	} else{
+		let pfp = match.pfp;
+		const embTrue = new Discord.RichEmbed()
+		.setColor('	#23272a')
+			.setAuthor('Valyrie Information', 'https://i.imgur.com/5ejjwD3.png', match.url)
+			.setTitle(match.valkName)
+			.setThumbnail(pfp[Math.floor(Math.random()*pfp.length)])
+			.addField('Weapon type', match.weap)
+			.addField('Age', match.Age, true)
+			.addField('Birthday', match.DOB, true)
+			.addField('Height', match.Height, true)
+			.addField('Weight', match.Weight, true)
+			.addField('Measurements', match.Measurements, true)
+			.addField('Bio', match.vBio)
+			.setTimestamp()
+			.setFooter('King Homu™ Archives', 'https://i.imgur.com/SuxUzng.png');
+		message.channel.sendEmbed(embTrue);
+		console.log(`------------------------------------------------\nUser has selected **${match.vCode}**`);
+		console.log(`${pfp[Math.floor(Math.random()*pfp.length)]}\n------------------------------------------------`);
+	}
 };
 
 exports.help = {
