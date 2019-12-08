@@ -5,7 +5,7 @@ const biconfig = require('../global/bitimer.js');
 
 module.exports = homu => {
     console.log(`${homu.user.tag} logging in...`);
-    setTimeout(homuRun => {console.log(`${homu.user.tag} logged and ready to go!\n`);},7000);
+    setTimeout(homuRun => {console.log(`${homu.user.tag} logged and ready to go!\n`);},3000);
     console.log(homu.guilds.get('id'));
     var hour = moment().tz('Asia/Manila').format('HH');
     var boss, lvl, bsimg, stat, pstat;
