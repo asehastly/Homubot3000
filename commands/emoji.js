@@ -1,6 +1,7 @@
 const Discord = module.require('discord.js');
 const moment = module.require('moment-timezone');
 const { con } = require('../config.js');
+const valkName = require('../global/valks.js');
 
 
 exports.run = (homu, message, args) => {
