@@ -24,6 +24,7 @@ exports.run = (homu, message, args) => {
     }
     //Applying userinfo on embed
     console.log(`user ID: ${user.id}\nauthor ID: ${message.author.id}`);
+    console.log(gmem.roles);
     const memEMB = new Discord.RichEmbed()
             .setColor(0x2c2f33)
             .setAuthor(`${message.guild.name} Membership Card`, 'https://i.imgur.com/1K2pdQH.png', ' ')
