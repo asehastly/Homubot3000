@@ -13,7 +13,7 @@ const prefix = config.prefix;
     const { config: {prefix } } = require('./index');
     
     then you can use the prefix simply by getting the variable "prefix"  */
-const { prefix } = require('../config.js');
+const { prefix } = require('../global/config.js');
 
 module.exports = async (homu, message) => {
     if(message.author.bot) return;
