@@ -1,6 +1,6 @@
 const Discord = module.require('discord.js');
 const fs = module.require('fs');
-const { con } = require('../config.js');
+const { con } = require('../global/config.js');
 
 exports.run = (homu, message, args) => {
 	message.delete();
