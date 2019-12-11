@@ -1,6 +1,6 @@
 const Discord = module.require('discord.js');
 const moment = module.require('moment-timezone');
-const { con } = require('../config.js');
+const { con } = require('../global/config.js');
 
 
 exports.run = (homu, message, args) => {
@@ -82,6 +82,22 @@ exports.run = (homu, message, args) => {
 	message.channel.sendEmbed(emb);
 	console.log(args);
 	//message.channel.send(args).then(update => { update.delete(15000)});
+};
+
+exports.help = {
+	name: 'test'
+}
+
+
+const Discord = module.require('discord.js');
+const valks = require('../global/arrays.js');
+const { con } = require('../global/config.js');
+
+
+exports.run = (homu, message, args) => {
+    console.log(`------------------------------------------------\nUser has typed **${args}**\n------------------------------------------------`);
+    
+	
 };
 
 exports.help = {
