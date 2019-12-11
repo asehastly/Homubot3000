@@ -1,7 +1,7 @@
 
 const mysql = module.require('mysql');
 const moment = module.require('moment-timezone');
-const { con } = require('../config.js');
+const { con } = require('../global/config.js');
 const biconfig = require('../global/bitimer.js');
 
 exports.run = (homu, message, args) => {
