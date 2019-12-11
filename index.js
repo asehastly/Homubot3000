@@ -7,9 +7,9 @@ const homu = new Discord.Client();
 homu.collection = new Discord.Collection();
 homu.commands = new Enmap();
 homu.jmem = require('./json/member.json')
-homu.jstud = require('./json/student.json');
+homu.valks = require('./json/valks.json');
 homu.boss = require('./json/boss.json');
-const { token } = require('./config.js');
+const { token } = require('./global/config.js');
 
 /*Discord Bot command array sample,
 h!mute @user 12h Posting too many shit memes
