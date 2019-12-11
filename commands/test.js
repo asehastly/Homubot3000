@@ -1,40 +1,17 @@
 const Discord = module.require('discord.js');
-const valks = require('../global/valks.js');
-const { con } = require('../config.js');
+const { con, valkProcess, emoji } = require('../global/config.js');
 
 
 exports.run = (homu, message, args) => {
 	
 	if(!args[0]) return message.channel.send("Please type the name of the valkyrie you're trying to see.").then(update => { update.delete(7000)});
-	var valkqueue, valkfound, stat;
-	switch(args[0].toLowerCase()) {
-		case 'theresa':
-			valkqueue = 'Teri';
-		break;
-		case 'fu':
-			valkqueue = 'Fuka';
-		break;
-		case 'fuhua':
-			valkqueue = 'Fuka';
-		break;
-		case 'liliya':
-			valkqueue = 'Lily';
-		break;
-		case 'rozaliya':
-			valkqueue = 'Roza';
-		break;
-		default:
-			valkqueue = args[0];
-	}
-	
-	const match = valks.find(item => {
-		if(item.vCode === valkqueue.toUpperCase()) {
-			return true;
-		}
-	})
+	var valkqueue, valkfound;
+
+	console.log(`${message.author.tag} as entered "${args.join(" ")}"\nwhich is useless because I'm only accepting "${args[0]}"`);
+	const valks = valkProcess(args[0]);
 	message.delete();
-	console.log(match);
-	if(match === undefined) {
+	console.log(valks);
+	if(valks === undefined) {
 		let concat = args.join(" ");
 		const embFalse = new Discord.RichEmbed()
 		.setColor('	#23272a')
@@ -45,24 +22,45 @@ exports.run = (homu, message, args) => {
 			.setFooter('King Homu™ Archives', 'https://i.imgur.com/SuxUzng.png');
 		message.channel.sendEmbed(embFalse).then(update => { update.delete(10000)});
 	} else{
-		let pfp = match.pfp;
+		valkfound = homu.valks[valks.Json];
+		//console.log(valkfound.emoji);
+		let pfp = valkfound.pfp;
 		const embTrue = new Discord.RichEmbed()
 		.setColor('	#23272a')
-			.setAuthor('Valyrie Information', 'https://i.imgur.com/5ejjwD3.png', match.url)
-			.setTitle(match.valkName)
+			.setAuthor('Valyrie Information', 'https://i.imgur.com/5ejjwD3.png', valkfound.url)
+			.setTitle(valkfound.valkName)
+			.setDescription(`**Weapon type**:${valkfound.weap}\n**Age**:${valkfound.Age}\t\t\t\t**Birthday**:${valkfound.DOB}\n**Measurements**:${valkfound.Measurements}\n**Height**: ${valkfound.Height}\t\t\t**Weight**:${valkfound.Weight}`)
 			.setThumbnail(pfp[Math.floor(Math.random()*pfp.length)])
-			.addField('Weapon type', match.weap)
-			.addField('Age', match.Age, true)
-			.addField('Birthday', match.DOB, true)
-			.addField('Height', match.Height, true)
-			.addField('Weight', match.Weight, true)
-			.addField('Measurements', match.Measurements, true)
-			.addField('Bio', match.vBio)
+			.addField('Battlesuit', `${bSuit(valkfound)}`, true)
+			.addField('Outfits', `${cSuit(valkfound)}`, true)
+			.addField('Bio', valkfound.vBio)
 			.setTimestamp()
 			.setFooter('King Homu™ Archives', 'https://i.imgur.com/SuxUzng.png');
 		message.channel.sendEmbed(embTrue);
-		console.log(`------------------------------------------------\nUser has selected **${match.vCode}**`);
+		console.log(`------------------------------------------------\nUser has selected **${valkfound.vCode}**`);
 		console.log(`${pfp[Math.floor(Math.random()*pfp.length)]}\n------------------------------------------------`);
+		
+		function emoji(id) {
+			console.log(id)
+			return homu.emojis.get(id).toString();
+			//return 'NAN'
+		 }
+
+		function bSuit() {
+			 const bMatch = valkfound.emoji.filter(look => {
+				 if(look.otype === "Battlesuit") return true;
+			 });
+			 //console.log(bMatch);
+			 return bMatch.map(suit => `${emoji(suit.ctype)} | ${emoji(suit.id)}${suit.name}`).join('\n')
+		}
+
+		function cSuit() {
+			const cMatch = valkfound.emoji.filter(look => {
+				if(look.otype === "Outfit") return true;
+			});
+			//console.log(bMatch);
+			return cMatch.map(suit => `${emoji(suit.ctype)} | ${emoji(suit.id)}${suit.name}`).join('\n')
+	   }
 	}
 };
 
