@@ -1,6 +1,6 @@
 const Discord = module.require('discord.js');
-const valks = require('../global/valks.js');
-const { con } = require('../config.js');
+const valks = require('../global/arrays.js');
+const { con } = require('../global/config.js');
 
 
 exports.run = (homu, message, args) => {
@@ -19,6 +19,11 @@ exports.run = (homu, message, args) => {
             let seconds = totalSeconds % 60;
 
             message.channel.send(`I am running at\n${days} days\n${hours} hrs.\n${minutes} min.\n${seconds} sec.`).then(update => { update.delete(15000)});
+        break;
+        case "delete":
+            args.shift();
+            message.channel.bulkDelete(args[0]);
+            message.channel.send(`${args[0]} has been deleted... I hope you're happy...`).then(update => { update.delete(7000)});
         break;
         default: message.channel.send("I have no idea what you've just said... can you clarify that?").then(update => { update.delete(7000)});
     }
