@@ -1,12 +1,15 @@
 const Discord = module.require('discord.js');
+const fs = module.require('fs');
 const moment = module.require('moment-timezone');
-const { con } = require('../config.js');
+const { con } = require('../global/config.js');
 const biconfig = require('../global/bitimer.js');
 
 module.exports = homu => {
+    const valks = homu.valks['con-Test'];
+    console.log(valks.output);
     console.log(`${homu.user.tag} logging in...`);
     setTimeout(homuRun => {console.log(`${homu.user.tag} logged and ready to go!\n`);},3000);
-    console.log(homu.guilds.get('id'));
+
     var hour = moment().tz('Asia/Manila').format('HH');
     var boss, lvl, bsimg, stat, pstat;
     homu.setInterval(() => {
