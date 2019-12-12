@@ -19,34 +19,62 @@ con.connect(err => {
     //con.query('SHOW TABLES', console.log);
 });
 
-function valkProcess(args) {
-    let valkqueue, output;
-
-    valkqueue = args.toUpperCase()
-    console.log(`String input was converted to ${valkqueue}`)
-    const match = valks.find(code => {
-        for(let i = 0; i < code.vCode.length; i++) {
-            console.log(code.vCode[i]);
-            if(code.vCode[i] === valkqueue) {
-                return true;
-            }
-        }
-		
-    })
-    return match;
-}
-
-function emoji(id) {
-    console.log(id)
-    return homu.emojis.get(id).toString();
-    //return 'NAN'
- }
-
 module.exports = {
     token: process.env.TOKEN,
     owner: process.env.OWNER,
     prefix: process.env.PREFIX,
     con,
-    valkProcess,
-    emoji
+    valkProcess: function(args) {
+        let valkqueue, output;
+    
+        valkqueue = args.toUpperCase()
+        console.log(`String input was converted to ${valkqueue}`)
+        const match = valks.find(code => {
+            for(let i = 0; i < code.vCode.length; i++) {
+                console.log(code.vCode[i]);
+                if(code.vCode[i] === valkqueue) {
+                    return true;
+                }
+            }
+            
+        })
+        return match;
+    },
+    emoji: function(id) {
+        console.log(homu.emojis.get(id))
+        //const emo = `${homu.emojis.get(id)}`;
+        return homu.emojis.get(id);
+        //return 'NAN'
+     },
+     ConvNum: function(id) {
+        var emo = id.match(/\d/g);
+        emo = emo.join("")
+        const temp = emo;
+        console.log(temp);
+        return temp;
+    },
+    suit: function(btype) {
+        switch(btype) {
+            case 'B':
+                return "Battlesuit";
+            case 'O':
+                return "Outfit";
+            default:
+                return null;
+        }
+    },
+    findSuit: function(suit) {
+        const match = valks.find(code => {
+            for(let i = 0; i < code.sCode.length; i++) {
+                console.log(code.sCode[i]);
+                if(code.sCode[i] === suit) {
+                    return true;
+                }
+            }
+            
+        })
+    },
+    valkMap: function() {
+        const map = valks.map()
+    }
 }
