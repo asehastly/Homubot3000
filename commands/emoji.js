@@ -1,101 +1,91 @@
 const Discord = module.require('discord.js');
-const moment = module.require('moment-timezone');
-const { con } = require('../global/config.js');
-const valkName = require('../global/arrays.js');
+const valks = require('../global/arrays.js');
+const { con, ConvNum, suit, valkProcess, emoji } = require('../global/config.js');
 
 
 exports.run = (homu, message, args) => {
-	var valk, vcode, vid, valkqueue;
 	message.delete();
+
 	switch(args[0]) {
 		case "add":
 			args.shift();
-			if(args.length < 3) return message.channel.send("Remember the syntax fucker! I don't want to remind you everytime you make a fucking typo\n**Syntax**: `homu emoji |Valkyrie| |Emoji Code| |The Actual Fucking Emoji|`").then(update => { update.delete(15000)});
-			var emo = args[2].match(/\d/g);
-			emo = emo.join("")
-			args[2] = emo;
-			valk = args[0].toUpperCase();
-			vcode = args[1].toUpperCase();
-			vid = args[2];
-			
-			con.query(`SELECT * FROM emoji WHERE id = '${vid}'`, (err, result) => {
+			if(args.length < 1) return message.channel.send('Just a reminder,\n**Syntax: homu emoji add `**cVode**` `**Battlesuit ID**` `**B or O**` `**Creature Emoji**` `**Valk Emoji**` `**Name of valk**`');
+			var vCode = args[0].toUpperCase();
+			var sID = args[1].toUpperCase();
+			var otype = suit(args[2].toUpperCase());
+			var ctype = ConvNum(args[3]);
+			var valkID = ConvNum(args[4]);
+			args = args.slice(5);
+			var valkName = args.join(" ");
+			const match = valkProcess(vCode);
+			console.log(otype);
+			if(match === undefined) return message.channel.send("**Syntax**: homu emoji add `**cVode**` `**Battlesuit ID**` `**B or O**` `**Creature Emoji**` `**Valk Emoji**` `**Name of valk**` *vCode*").then(update => { update.delete(10000)});
+			if(sID.length < 1 ) return message.channel.send("**Syntax**: homu emoji add `**cVode**` `**Battlesuit ID**` `**B or O**` `**Creature Emoji**` `**Valk Emoji**` `**Name of valk**` *sID*").then(update => {update.delete(10000)});
+			if(!otype) return message.channel.send("**Syntax**: homu emoji add `**cVode**` `**Battlesuit ID**` `**B or O**` `**Creature Emoji**` `**Valk Emoji**` `**Name of valk**` *otype*").then(update => {update.delete(10000)});
+			if(valkID.length != 18 || ctype.length != 18) return message.channel.send("**Syntax**: homu emoji add `**cVode**` `**Battlesuit ID**` `**B or O**` `**Creature Emoji**` `**Valk Emoji**` `**Name of valk**` *emojiID*").then(update => {update.delete(10000)});
+			con.query(`SELECT * FROM emoji WHERE id = '${valkID}'`, (err, rows) => {
 				if(err) throw err;
-				
+				console.log(rows);
 				let sql;
-				if(result.length < 1) {
-					sql = `INSERT INTO emoji (valk, code, id) VALUES ('${valk}', '${vcode}', '${vid}')`;
-					const emb = new Discord.RichEmbed()
-						.setColor(0x23272a)
-						.addField("Account Information",`Valkyrie: ${valk}\nContribution Code: ${vcode}\nEmoji ID: ${vid}`)
+				if(rows.length < 1) {
+					sql = `INSERT INTO emoji (vcode, suitID, name, id, otype, ctype) VALUES ("${vCode}", "${sID}", "${valkName}", "${valkID}", "${otype}", "${ctype}")`;
+					const addEmb =  new Discord.RichEmbed()
+						.setAuthor('Valyrie Information', 'https://i.imgur.com/5ejjwD3.png', '')
+						.setTitle(`${valkName} has been added to the database.`)
+						.addField('Valkyrie Code:', vCode, true)
+						.addField('Suit Code:', sID, true)
+						.addField('Details:', `Suit type: ${otype}\nValkyrie Emoji ID: ${valkID}\nCreature type Emoji ID: ${ctype}`)
 						.setTimestamp()
-						.setFooter('Diamond Club Armada', 'https://i.imgur.com/FpIimN1.png');
-					message.channel.send("Adding this emoji is complete... I hope you're happy.");
-					message.channel.sendEmbed(emb);
+						.setFooter('King Homu™ Archives', 'https://i.imgur.com/SuxUzng.png');
+					message.channel.sendEmbed(addEmb).then(update => { update.delete(60000)});
+					message.channel.send(`*added info*\n{"name":"${valkName}","id":"${valkID}","otype":"${otype}","ctype":"${ctype}"}`);
 				} else {
-					message.channel.send(`${valk} as already been added... fucko!`);
+					let boss = rows[0].vCode;
+					sql = `UPDATE emoji SET vCode = "${vCode}", suitID = "${sID}", name = "${valkName}", otype = "${otype}", ctype = "${ctype}" WHERE id = "${valkID}"`;
+					const upEmb =  new Discord.RichEmbed()
+						.setAuthor('Valyrie Information', 'https://i.imgur.com/5ejjwD3.png', '')
+						.setTitle(`${valkName} has been updated on the database.`)
+						.addField('Valkyrie Code:', vCode, true)
+						.addField('Suit Code:', sID, true)
+						.addField('Details:', `Suit type: ${otype}\nValkyrie Emoji ID: ${valkID}\nCreature type Emoji ID: ${ctype}`)
+						.setTimestamp()
+						.setFooter('King Homu™ Archives', 'https://i.imgur.com/SuxUzng.png');
+					message.channel.sendEmbed(upEmb).then(update => { update.delete(60000)});
+					message.channel.send(`*updated info*\n{"name":"${valkName}","id":"${valkID}","otype":"${otype}","ctype":"${ctype}"}`);
 				}
 				con.query(sql,console.log);
 			});
 		break;
-		case "view":
+		case "list":
 			args.shift();
-			var view = args[0];
-			if(!args[0]) return message.channel.send("Who do you want to view? please enter the name").then(update => { update.delete(15000)});
-			switch(args[0].toLowerCase()) {
-				case 'theresa':
-					valkqueue = 'Teri';
-				break;
-				case 'fu':
-					valkqueue = 'Fuka';
-				break;
-				case 'fuhua':
-					valkqueue = 'Fuka';
-				break;
-				case 'liliya':
-					valkqueue = 'Lily';
-				break;
-				case 'rozaliya':
-					valkqueue = 'Roza';
+			switch(args[0]) {
+				case "all":
+					for(let i = 0; i < 3; i++) {
+						con.query(`SELECT * FROM emoji WHERE vCode = '${valks[i].vCode[0]}'`, (err, rows) => {
+							if(err) throw err;
+							//console.log(rows.length);
+							for(let i = 0; i < rows.length; i++) {
+								//console.log(rows.length);
+								//addEmb.addField(rows[i].name, `${homu.emojis.get(rows[i].id)}`, true)
+								message.channel.send(`${homu.emojis.get(rows[i].id)} ${homu.emojis.get(rows[i].ctype)}\n**${rows[i].name}** | ${rows[i].suitID} - ${rows[i].otype}`);
+							}
+						});
+
+					}
+					
+					
+					//message.channel.send(`${homu.emojis.get("652909399739727873")}`).then(all => {all.delete(10000)});
 				break;
 				default:
-					valkqueue = args[0];
+
 			}
-			valk = valkqueue.toUpperCase();
-			console.log(valk);
-			con.query(`SELECT * FROM valky WHERE vcode = '${valk}'`, (err, result) => {
-				if(err) throw err;
-				console.log(result.length);
-				if(result.length < 1) {
-					return message.channel.send("Record not found. please verify that the name is a playable valkyrie.").then(update => { update.delete(15000)});
-				} else {
-					var valkres = result[0].valkname;
-					con.query(`SELECT * FROM emoji WHERE valk = '${valk}'`, (err, result) => {
-						if(err) throw err;
-						
-						const emb = new Discord.RichEmbed()
-							.setColor(0x23272a)
-							.setTitle(`List of ${valkres} emojis`)
-							.setAuthor('King Homu Valkyrie Database', 'https://i.imgur.com/5ejjwD3.png', ' ')
-							.setDescription('**Disclaimer**: This emojis are only used for contributions')
-							for (let i = 0; i < result.length; i++) {
-								emb.addField(emoji(result[i].id),`Code **${result[i].code}**`, true)
-							}
-							emb.setTimestamp()
-							emb.setFooter('Diamond Club Armada', 'https://i.imgur.com/FpIimN1.png');
-						message.channel.sendEmbed(emb);
-						
-						function emoji(id) {
-						   return homu.emojis.get(id).toString();
-						}
-					});
-				}
-			});
-			/**/
 		break;
 		default:
-			message.channel.send("what do you want to do?\n**add**\n**vew**\n**remove**\nWHAT **MOTHERFUCKER**!! WHAT!!!!").then(update => { update.delete(15000)});
+			message.channel.send("need command....");
+	} //End tag for switch condition.
+	function verify() {
+
 	}
-	
 };
 
 exports.help = {
