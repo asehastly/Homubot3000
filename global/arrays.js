@@ -1,17 +1,17 @@
 
 module.exports =  [
-    {vCode:["KIANA"], Json:"valk01"},
-    {vCode:["MEI", "RAIDEN"], Json:"valk02"},
-    {vCode:["BRONYA"], Json:"valk03"},
-    {vCode:["HIMEKO"], Json:"valk04"},
-    {vCode:["SAKURA"], Json:"valk05"},
-    {vCode:["TERI", "THERESA", "TERIRI"], Json:"valk06"},
-    {vCode:["FUKA", "FU", "FUHUA"], Json:"valk07"},
-    {vCode:["KALLEN"], Json:"valk08"},
-    {vCode:["RITA"], Json:"valk09"},
-    {vCode:["LILY", "LILIYA"], Json:"valk10"},
-    {vCode:["ROZA", "ROZALIYA"], Json:"valk11"},
-    {vCode:["SEELE"], Json:"valk12"}
+    {vCode:["KIANA", "KASLANA"], Json:"valk01", sCode:["WC", "VR", "VRHWD", "VRVD", "DP", "KMB", "KMBDD", "KMBLS", "HOV", "HOVPK"]},
+    {vCode:["MEI", "RAIDEN"], Json:"valk02", sCode:["CI", "VB", "VBSF", "SD", "SDHN", "LE", "LEAC"]},
+    {vCode:["BRONYA", "ZAYCHIK"], Json:"valk03", sCode:["VC", "VCBR", "SS", "YA", "YADK", "DB", "WD", "WDMH", "BN", "HOR"]},
+    {vCode:["HIMEKO", "MURATA"], Json:"valk04", sCode:["BS", "VT", "SF", "SFSP", "BR", "AK", "AKFC", "VK"]},
+    {vCode:["SAKURA"], Json:"valk05", sCode:["MIKO", "MIKOSL", "MIKOSS", "FS", "MEME"]},
+    {vCode:["TERI", "THERESA", "TERIRI"], Json:"valk06", sCode:["VP", "VPP", "VPOF", "VPSS", "VPSHC", "RONDO", "RONDOLV", "RONDOMT", "LUNA", "LUNARB", "VE", "VEWT", "VETP", "CH"]},
+    {vCode:["FUKA", "FU", "FUHUA"], Json:"valk07", sCode:["VA", "PX", "PXFS", "NS", "NSRN", "NSST", "SK"]},
+    {vCode:["KALLEN"], Json:"valk08", sCode:["IR", "SJ", "6S"]},
+    {vCode:["RITA"], Json:"valk09", sCode:["UR", "URDC", "PI", "PIISS", "AKA", "AKAMC"]},
+    {vCode:["LILY", "LILIYA"], Json:"valk10", sCode:["BB"]},
+    {vCode:["ROZA", "ROZALIYA"], Json:"valk11", sCode:["MC"]},
+    {vCode:["SEELE"], Json:"valk12", sCode:["SP", "SPAM", "SPPL", "SN"]}
 ];
        
 
