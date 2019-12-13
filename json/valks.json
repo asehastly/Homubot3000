@@ -97,14 +97,14 @@
             "https://i.imgur.com/XPf7uwB.png"],
         "url":"https://honkaiimpact3.gamepedia.com/Murata_Himeko",
         "emoji": [
-            {"name":"Battle Storm","id":"652834425444237312","otype":"Battlesuit","ctype":"654226157524353045"},
-            {"name":"Valkyrie Triumph","id":"652834432490799124","otype":"Battlesuit","ctype":"654226157524353045"},
-            {"name":"Scarlet Fusion","id":"652834431152947219","otype":"Battlesuit","ctype":"654226157402718219"},
-            {"name":"Summer Party","id":"652834431307874315","otype":"Outfit","ctype":"654226157599850496"},
-            {"name":"Blood Rose","id":"652834416980262922","otype":"Battlesuit","ctype":"654226157599850496"},
-            {"name":"Arctic Kriegsmesser","id":"652834409858465802","otype":"Battlesuit","ctype":"654226157599850496"},
-            {"name":"Frisian Cutlass","id":"652834415017328680","otype":"Outfit","ctype":"654226157599850496"},
-            {"name":"Vermilion Knight: Eclipse","id":"652834432595656733","otype":"Battlesuit","ctype":"654226157402718219"}
+            {"name":"Battle Storm","id":"654549325472464897","otype":"Battlesuit","ctype":"654226157524353045"},
+            {"name":"Valkyrie Triumph","id":"654549325011091478","otype":"Battlesuit","ctype":"654226157524353045"},
+            {"name":"Scarlet Fusion","id":"654549324797050881","otype":"Battlesuit","ctype":"654226157402718219"},
+            {"name":"Summer Party","id":"654549326290354176","otype":"Outfit","ctype":"654226157402718219"},
+            {"name":"Blood Rose","id":"654549323819778050","otype":"Battlesuit","ctype":"654226157599850496"},
+            {"name":"Arctic Kriegsmesser","id":"654549323043831848","otype":"Battlesuit","ctype":"654226157599850496"},
+            {"name":"Frisian Cutlass","id":"654549325946552321","otype":"Outfit","ctype":"654226157599850496"},
+            {"name":"Vermilion Knight: Eclipse","id":"654549325522927627","otype":"Battlesuit","ctype":"654226157402718219"}
         ],
         "weap":"Greatswords",
         "Age":"27",
@@ -122,11 +122,11 @@
             "https://i.imgur.com/vU06i5N.png"],
         "url":"https://honkaiimpact3.gamepedia.com/Yae_Sakura",
         "emoji": [
-            {"name":"Gyakushinn Miko","id":"652834594126561294","otype":"Battlesuit","ctype":"654226157524353045"},
-            {"name":"Sublime Lotus","id":"652834592918732800","otype":"Outfit","ctype":"654226157524353045"},
-            {"name":"Summer Sakura","id":"652834594650849302","otype":"Outfit","ctype":"654226157524353045"},
-            {"name":"Flame Sakitama","id":"652834585356402688","otype":"Battlesuit","ctype":"654226157524353045"},
-            {"name":"Goushinnso Memento","id":"652834588925624320","otype":"Battlesuit","ctype":"654226157402718219"}
+            {"name":"Gyakushinn Miko","id":"654550513924308992","otype":"Battlesuit","ctype":"654226157524353045"},
+            {"name":"Sublime Lotus","id":"654550514935267348","otype":"Outfit","ctype":"654226157524353045"},
+            {"name":"Summer Sakura","id":"654550514159190016","otype":"Outfit","ctype":"654226157524353045"},
+            {"name":"Flame Sakitama","id":"654550514100338712","otype":"Battlesuit","ctype":"654226157524353045"},
+            {"name":"Goushinnso Memento","id":"654550514016452628","otype":"Battlesuit","ctype":"654226157402718219"}
         ],
         "weap":"Katanas",
         "Age":"**Unknown**",
@@ -146,7 +146,20 @@
             "https://i.imgur.com/Vi6aHBI.png"],
         "url":"https://honkaiimpact3.gamepedia.com/Theresa_Apocalypse",
         "emoji": [
-            {"name":"","id":"","otype":"","ctype":""}
+            {"name":"Valkyrie Pledge","id":"654564910432387093","otype":"Battlesuit","ctype":"654226157599850496"},
+            {"name":"Pledge","id":"654564918363684905","otype":"Outfit","ctype":"654226157599850496"},
+            {"name":"Ouranon's Forgiveness","id":"654564914895257649","otype":"Outfit","ctype":"654226157599850496"},
+            {"name":"Shallow Sunset","id":"654564923887583272","otype":"Outfit","ctype":"654226157599850496"},
+            {"name":"Sugar Haw Child","id":"654564921777848330","otype":"Outfit","ctype":"654226157599850496"},
+            {"name":"Sakuno Rondo","id":"654564904346320898","otype":"Battlesuit","ctype":"654226157599850496"},
+            {"name":"Lilac of the Valley","id":"654564908826099720","otype":"Outfit","ctype":"654226157599850496"},
+            {"name":"Magical Teriri","id":"654564908892946432","otype":"Outfit","ctype":"654226157599850496"},
+            {"name":"Luna Kindred","id":"654564890798718977","otype":"Battlesuit","ctype":"654226157524353045"},
+            {"name":"Rosy Bridesmaid","id":"654564893940514816","otype":"Outfit","ctype":"654226157524353045"},
+            {"name":"Violet Executer","id":"654564908725436417","otype":"Battlesuit","ctype":"654226157402718219"},
+            {"name":"Wonderland Trek","id":"654564909828407318","otype":"Outfit","ctype":"654226157402718219"},
+            {"name":"Twilight Paladin","id":"654564909350256642","otype":"Outfit","ctype":"654226157402718219"},
+            {"name":"Celestial Hymn","id":"654564887652990987","otype":"Battlesuit","ctype":"654226157524353045"}
         ],
         "weap":"Crosses",
         "Age":"*Secret* (Appears 12)",
@@ -165,7 +178,13 @@
             "https://i.imgur.com/8bTu2BX.png"],
         "url":"https://honkaiimpact3.gamepedia.com/Fu_Hua",
         "emoji": [
-            {"name":"","id":"","otype":"","ctype":""}
+            {"name":"Valkyrie Accipiter","id":"654545527094116363","otype":"Battlesuit","ctype":"654226157599850496"},
+            {"name":"Phoenix","id":"654545529459441666","otype":"Battlesuit","ctype":"654226157599850496"},
+            {"name":"Fire and Sword","id":"654545528260132895","otype":"Outfit","ctype":"654226157599850496"},
+            {"name":"Night Squire","id":"654545527832051732","otype":"Battlesuit","ctype":"654226157524353045"},
+            {"name":"Rustic Noir","id":"654545528264065054","otype":"Outfit","ctype":"654226157524353045"},
+            {"name":"Spring Traveler","id":"654545528457265154","otype":"Outfit","ctype":"654226157524353045"},
+            {"name":"Shadow Knight","id":"654545522647891998","otype":"Battlesuit","ctype":"654226157402718219"}
         ],
         "weap":"Gauntlets",
         "Age":"*Secret*",
@@ -183,7 +202,9 @@
             "https://i.imgur.com/m68OUWr.png"],
         "url":"https://honkaiimpact3.gamepedia.com/Kallen_Kaslana",
         "emoji": [
-            {"name":"","id":"","otype":"","ctype":""}
+            {"name":"Imayoh Ritual","id":"654552097290715148","otype":"Battlesuit","ctype":"654226157402718219"},
+            {"name":"Sündenjäger","id":"654552099438460929","otype":"Battlesuit","ctype":"654226157402718219"},
+            {"name":"Sixth Serenade","id":"654552093084090380","otype":"Battlesuit","ctype":"654226157599850496"}
         ],
         "weap":"Pistols",
         "Age":"24",
@@ -201,7 +222,12 @@
             "https://i.imgur.com/jyQueUE.png"],
         "url":"https://honkaiimpact3.gamepedia.com/Rita_Rossweisse",
         "emoji": [
-            {"name":"","id":"","otype":"","ctype":""}
+            {"name":"Umbral Rose","id":"654553450834821160","otype":"Battlesuit","ctype":"654226157599850496"},
+            {"name":"Dame de Cœur","id":"654553450117332993","otype":"Outfit","ctype":"654226157599850496"},
+            {"name":"Phantom Iron","id":"654553449748496405","otype":"Battlesuit","ctype":"654226157402718219"},
+            {"name":"Icy Sea Spray","id":"654553450452877313","otype":"Outfit","ctype":"654226157402718219"},
+            {"name":"Argent Knight: Artemis","id":"654553450180509710","otype":"Battlesuit","ctype":"654226157524353045"},
+            {"name":"Maid of Celestia","id":"654553450528636930","otype":"Outfit","ctype":"654226157524353045"}
         ],
         "weap":"Scythes",
         "Age":"21",
@@ -217,7 +243,7 @@
         "pfp":["https://i.imgur.com/hDj6nN8.png"],
         "url":"https://honkaiimpact3.gamepedia.com/Liliya_Olenyeva",
         "emoji": [
-            {"name":"","id":"","otype":"","ctype":""}
+            {"name":"Blueberry Blitz","id":"654565630174953474","otype":"Battlesuit","ctype":"654226157402718219"}
         ],
         "weap":"Greatswords",
         "Age":"**Unknown**",
@@ -233,7 +259,7 @@
         "pfp":["https://i.imgur.com/RZBPLbS.png"],
         "url":"https://honkaiimpact3.gamepedia.com/Rozaliya_Olenyeva",
         "emoji": [
-            {"name":"","id":"","otype":"","ctype":""}
+            {"name":"Molotov Cherry","id":"654565636256563200","otype":"Battlesuit","ctype":"654226157599850496"}
         ],
         "weap":"Greatswords",
         "Age":"**Unknown**",
@@ -249,7 +275,10 @@
         "pfp":["https://i.imgur.com/SHkmUCN.png"],
         "url":"https://honkaiimpact3.gamepedia.com/Seele_Vollerei",
         "emoji": [
-            {"name":"","id":"","otype":"","ctype":""}
+            {"name":"Swallowtail Phantasm","id":"654560192574390283","otype":"Battlesuit","ctype":"654226157255786509"},
+            {"name":"Azure Memories","id":"654560193954316310","otype":"Outfit","ctype":"654226157255786509"},
+            {"name":"Papilio Lily","id":"654560198899400705","otype":"Outfit","ctype":"654226157255786509"},
+            {"name":"Stygian Nymph","id":"654560188644196362","otype":"Battlesuit","ctype":"654226157255786509"}
         ],
         "weap":"Scythes",
         "Age":"**Unknown**",
