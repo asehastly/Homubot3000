@@ -56,32 +56,56 @@ exports.run = (homu, message, args) => {
 				con.query(sql,console.log);
 			});
 		break;
-		case "list":
+		case "generate":
 			args.shift();
 			switch(args[0]) {
-				case "all":
-					for(let i = 0; i < 3; i++) {
-						con.query(`SELECT * FROM emoji WHERE vCode = '${valks[i].vCode[0]}'`, (err, rows) => {
+				case 'list':
+					args.shift();
+					const match2 = valkProcess(args[0]);
+					if(match2 === undefined) {
+						message.channel.send(`${args.join(' ')} doesn't exist in my archives... try again.`).then(nan => {nan.delete(10000)});
+					} else {
+						console.log(match2.vCode);
+						message.channel.send(`**${args.join(' ')}** was found with the keyword \`${args[0]}\``).then(found => {found.delete(10000)});
+						con.query(`SELECT * FROM emoji WHERE vCode = '${match2.vCode[0]}'`, (err, rows) => {
 							if(err) throw err;
-							//console.log(rows.length);
+							console.log(rows);
+							const listEmb =  new Discord.RichEmbed()
+								.setAuthor('Valyrie Information', 'https://i.imgur.com/5ejjwD3.png', '')
+								.setTitle(homu.valks[match2.Json].valkName)
 							for(let i = 0; i < rows.length; i++) {
-								//console.log(rows.length);
-								//addEmb.addField(rows[i].name, `${homu.emojis.get(rows[i].id)}`, true)
-								message.channel.send(`${homu.emojis.get(rows[i].id)} ${homu.emojis.get(rows[i].ctype)}\n**${rows[i].name}** | ${rows[i].suitID} - ${rows[i].otype}`);
+								listEmb.addField(`${homu.emojis.get(rows[i].id)} || ${homu.emojis.get(rows[i].ctype)}`, `${rows[i].name}(\`${rows[i].suitID}\`)\nsuit type: ${rows[i].otype}`, true)
+								listEmb.setTimestamp()
+								listEmb.setFooter('King Homu™ Archives', 'https://i.imgur.com/SuxUzng.png');
 							}
+							message.channel.sendEmbed(listEmb);
 						});
-
 					}
-					
-					
-					//message.channel.send(`${homu.emojis.get("652909399739727873")}`).then(all => {all.delete(10000)});
 				break;
-				default:
-
+				case "code":
+					args.shift();
+					const match3 = valkProcess(args[0]);
+					if(match3 === undefined) {
+						message.channel.send(`${args.join(' ')} doesn't exist in my archives... try again.`).then(nan => {nan.delete(10000)});
+					} else {
+						console.log(match3.vCode);
+						message.channel.send(`**${args.join(' ')}** was found with the keyword \`${args[0]}\``).then(found => {found.delete(10000)});
+						con.query(`SELECT * FROM emoji WHERE vCode = '${match3.vCode[0]}'`, (err, rows) => {
+							if(err) throw err;
+							console.log(rows);
+							const codeEmb =  new Discord.RichEmbed()
+								.setAuthor('Valyrie Information', 'https://i.imgur.com/5ejjwD3.png', '')
+								.setTitle(`${homu.valks[match3.Json].valkName} json codes`)
+							for(let i = 0; i < rows.length; i++) {
+								codeEmb.addField(`${rows[i].name}`, `{"name":"${rows[i].name}","id":"${rows[i].id}","otype":"${rows[i].otype}","ctype":"${rows[i].ctype}"}`, true)
+								codeEmb.setTimestamp()
+								codeEmb.setFooter('King Homu™ Archives', 'https://i.imgur.com/SuxUzng.png');
+							}
+							message.channel.sendEmbed(codeEmb);
+						});
+					}
+				break;
 			}
-		break;
-		default:
-			message.channel.send("need command....");
 	} //End tag for switch condition.
 	function verify() {
 
