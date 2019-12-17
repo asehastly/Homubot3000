@@ -25,6 +25,9 @@ exports.run = (homu, message, args) => {
             message.channel.bulkDelete(args[0]);
             message.channel.send(`${args[0]} has been deleted... I hope you're happy...`).then(update => { update.delete(7000)});
         break;
+        case 'valks':
+
+        break;
         default: message.channel.send("I have no idea what you've just said... can you clarify that?").then(update => { update.delete(7000)});
     }
 	
