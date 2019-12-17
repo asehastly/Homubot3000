@@ -1,5 +1,5 @@
 const Discord = module.require('discord.js');
-const { con, valkProcess, emoji } = require('../global/config.js');
+const { con, valkProcess, emoji, matchfound, notFound, react } = require('../global/config.js');
 
 
 exports.run = (homu, message, args) => {
@@ -11,57 +11,70 @@ exports.run = (homu, message, args) => {
 	const valks = valkProcess(args[0]);
 	message.delete();
 	console.log(valks);
-	if(valks === undefined) {
-		let concat = args.join(" ");
-		const embFalse = new Discord.RichEmbed()
-		.setColor('	#23272a')
-			.setAuthor('Valyrie Information', 'https://i.imgur.com/5ejjwD3.png')
-			.setTitle(`${concat} was not on the database`)
-			.setDescription("Are you sure you are looking for a **playable** valkyrie?")
-			.setTimestamp()
-			.setFooter('King Homu™ Archives', 'https://i.imgur.com/SuxUzng.png');
-		message.channel.sendEmbed(embFalse).then(update => { update.delete(10000)});
-	} else{
-		valkfound = homu.valks[valks.Json];
-		//console.log(valkfound.emoji);
-		let pfp = valkfound.pfp;
-		const embTrue = new Discord.RichEmbed()
-		.setColor('	#23272a')
-			.setAuthor('Valyrie Information', 'https://i.imgur.com/5ejjwD3.png', valkfound.url)
-			.setTitle(valkfound.valkName)
-			.setDescription(`**Weapon type**:${valkfound.weap}\n**Age**:${valkfound.Age}\t\t\t\t**Birthday**:${valkfound.DOB}\n**Measurements**:${valkfound.Measurements}\n**Height**: ${valkfound.Height}\t\t\t**Weight**:${valkfound.Weight}`)
-			.setThumbnail(pfp[Math.floor(Math.random()*pfp.length)])
-			.addField('Battlesuit', `${bSuit(valkfound)}`, true)
-			.addField('Outfits', `${cSuit(valkfound)}`, true)
-			.addField('Bio', valkfound.vBio)
-			.setTimestamp()
-			.setFooter('King Homu™ Archives', 'https://i.imgur.com/SuxUzng.png');
-		message.channel.sendEmbed(embTrue);
-		console.log(`------------------------------------------------\nUser has selected **${valkfound.vCode}**`);
-		console.log(`${pfp[Math.floor(Math.random()*pfp.length)]}\n------------------------------------------------`);
-		
-		function emoji(id) {
-			console.log(id)
-			return homu.emojis.get(id).toString();
-			//return 'NAN'
-		 }
+	if(valks < 1) {
+		message.channel.send(notFound(args)).then(update => { update.delete(10000)});
+	} else if(valks.length > 1) {
+		var num = 0;
+		if(args.length > 1) {
+			console.log(`Length of args: ${args.length}`);
+			const valks2 = valkProcess(args[1]);
+			console.log(valks2);
+			if(valks2 < 1) return message.channel.send(notFound(args)).then(update => { update.delete(10000)});
+			console.log(valks2[0].Json);
+			message.channel.send(matchfound(valks2[0].Json)).catch(err => console.log(err));
+		} else {
+			const a = react(valks[0].Json);
+			const b = react(valks[1].Json);
+			var react1, react2;
+			
+			const filter = (reaction, user) => [a, b].includes(reaction.emoji.id) && user.id === message.author.id;
 
-		function bSuit() {
-			 const bMatch = valkfound.emoji.filter(look => {
-				 if(look.otype === "Battlesuit") return true;
-			 });
-			 //console.log(bMatch);
-			 return bMatch.map(suit => `${emoji(suit.ctype)} | ${emoji(suit.id)}${suit.name}`).join('\n')
+			const embDupl = new Discord.RichEmbed()
+			.setColor('	#23272a')
+				.setAuthor('Valyrie Information', 'https://i.imgur.com/5ejjwD3.png')
+				.setTitle(`Which ${args[0]} are you looking for?`)
+				for(let i = 0; i < valks.length; i++) {
+					console.log(valks[i].Json);
+					num = num + 1;
+					valkfound = homu.valks[valks[i].Json];
+					embDupl.addField(emoji(valkfound.emoji[0].id), valkfound.valkName)
+				}
+				embDupl.setTimestamp()
+				embDupl.setFooter('King Homu™ Archives', 'https://i.imgur.com/SuxUzng.png');
+			message.channel.send(embDupl).then(async msg => {
+				/* msg.react(a).then(reaction => console.log(reaction.emoji.id))
+				msg.react(b).then(reaction => console.log(reaction.emoji.id))
+				console.log(`${react1}\n${react2}`) */
+				await msg.react(`${a}`).then(reaction => console.log(reaction.emoji.id));
+				await msg.react(`${b}`).then(reaction => console.log(reaction.emoji.id));
+
+				msg.awaitReactions(filter, {
+					max: 1,
+					time: 30000,
+					error: ['Time']
+				}).then(collected => {
+					const reaction = collected.first();
+
+					switch(reaction.emoji.id) {
+						case a:
+							message.channel.send(matchfound(valks[0].Json)).catch(err => console.log(err));
+						break;
+						case b:
+							message.channel.send(matchfound(valks[1].Json)).catch(err => console.log(err));
+						break;
+					}
+				})
+			})
+			//message.react(`${a}`);
+			//message.react(`${b}`);
+			//console.log(`${a}`);
 		}
-
-		function cSuit() {
-			const cMatch = valkfound.emoji.filter(look => {
-				if(look.otype === "Outfit") return true;
-			});
-			//console.log(bMatch);
-			return cMatch.map(suit => `${emoji(suit.ctype)} | ${emoji(suit.id)}${suit.name}`).join('\n')
-	   }
+	} else {
+		//console.log(valks);
+		message.channel.send(matchfound(valks[0].Json)).catch(err => console.log(err));
+		console.log(`------------------------------------------------\nUser has selected **something**\n------------------------------------------------`);
 	}
+	
 };
 
 exports.help = {
