@@ -4,14 +4,14 @@
     },
     "valk01": {
         "valkName":"Kiana Kaslana", 
-        "vCode":"KIANA",
+        "vCode":["KIANA"],
+        "color":"#FF6600",
         "pfp":["https://i.imgur.com/nj1ZrGs.png",
             "https://i.imgur.com/NGBs536.png",
             "https://i.imgur.com/jBJjJx2.png",
             "https://i.imgur.com/XIgi0L1.png",
             "https://i.imgur.com/Hngvytm.png"],
         "url":"https://honkaiimpact3.gamepedia.com/Kiana_Kaslana",
-        "prefix":"K",
         "emoji": [
             {"name":"White Comet","type":"static","emoName":"K_WC","id":"652899423948374016","otype":"Battlesuit","ctype":"654226157402718219"},
             {"name":"Valkyrie Ranger","type":"static","emoName":"K_WC","id":"652899417447333889","otype":"Battlesuit","ctype":"654226157402718219"},
@@ -33,7 +33,8 @@
     },
     "valk02": {
         "valkName":"Raiden Mei", 
-        "vCode":"MEI",
+        "vCode":["MEI"],
+        "color":"#565576",
         "pfp":["https://i.imgur.com/LU1SjT9.png",
             "https://i.imgur.com/KW7cBMk.png",
             "https://i.imgur.com/1ZwdEvp.png",
@@ -58,7 +59,8 @@
     },
     "valk03": {
         "valkName":"Bronya Zaychik", 
-        "vCode":"BRONYA",
+        "vCode":["BRONYA"],
+        "color":"#C0C0C0",
         "pfp":["https://i.imgur.com/Xt52wBv.png",
             "https://i.imgur.com/4anbrHq.png",
             "https://i.imgur.com/LAz4F6b.png",
@@ -89,7 +91,8 @@
     },
     "valk04": {
         "valkName":"Murata Himeko", 
-        "vCode":"HIMEKO",
+        "vCode":["HIMEKO"],
+        "color":"#990000",
         "pfp":["https://i.imgur.com/6cJZgXg.png",
             "https://i.imgur.com/yzkGt2m.png",
             "https://i.imgur.com/NDiqj1l.png",
@@ -117,7 +120,8 @@
     },
     "valk05": {
         "valkName":"Yae Sakura", 
-        "vCode":"SAKURA",
+        "vCode":["SAKURA"],
+        "color":"#ffb7c5",
         "pfp":["https://i.imgur.com/xXBzIhp.png",
             "https://i.imgur.com/PFxuOAq.png",
             "https://i.imgur.com/vU06i5N.png"],
@@ -140,6 +144,7 @@
     "valk06": {
         "valkName":"Theresa Apocalypse", 
         "vCode":["TERI", "THERESA", "TERIRI"],
+        "color":"#F8F8FF",
         "pfp":["https://i.imgur.com/RjXSzoi.png",
             "https://i.imgur.com/bTVL54C.png",
             "https://i.imgur.com/tMHZWip.png",
@@ -173,6 +178,7 @@
     "valk07": {
         "valkName":"Fu Hua", 
         "vCode":["FUKA", "FU", "FUHUA"],
+        "color":"#605E7C",
         "pfp":["https://i.imgur.com/8rSaCaF.png",
             "https://i.imgur.com/b8pMueH.png",
             "https://i.imgur.com/hWeMeHu.png",
@@ -197,7 +203,8 @@
     },
     "valk08": {
         "valkName":"Kallen Kaslana", 
-        "vCode":"KALLEN",
+        "vCode":["KALLEN"],
+        "color":"#295B92",
         "pfp":["https://i.imgur.com/oeTFTQU.png",
             "https://i.imgur.com/1xFBGCy.png",
             "https://i.imgur.com/m68OUWr.png"],
@@ -217,7 +224,8 @@
     },
     "valk09": {
         "valkName":"Rita Rossweisse", 
-        "vCode":"RITA",
+        "vCode":["RITA"],
+        "color":"#B15D7D",
         "pfp":["https://i.imgur.com/Roa2Afx.png",
             "https://i.imgur.com/WKIgv9W.png",
             "https://i.imgur.com/jyQueUE.png"],
@@ -241,6 +249,7 @@
     "valk10": {
         "valkName":"Liliya Olenyeva", 
         "vCode":["LILY", "LILIYA"],
+        "color":"#2A52A3",
         "pfp":["https://i.imgur.com/hDj6nN8.png"],
         "url":"https://honkaiimpact3.gamepedia.com/Liliya_Olenyeva",
         "emoji": [
@@ -257,6 +266,7 @@
     "valk11": {
         "valkName":"Rozaliya Olenyeva", 
         "vCode":["ROZA", "ROZALIYA"],
+        "color":"#D48A9B",
         "pfp":["https://i.imgur.com/RZBPLbS.png"],
         "url":"https://honkaiimpact3.gamepedia.com/Rozaliya_Olenyeva",
         "emoji": [
@@ -272,7 +282,8 @@
     },
     "valk12": {
         "valkName":"Seele Vollerei", 
-        "vCode":"SEELE",
+        "vCode":["SEELE"],
+        "color":"#3B37A1",
         "pfp":["https://i.imgur.com/SHkmUCN.png"],
         "url":"https://honkaiimpact3.gamepedia.com/Seele_Vollerei",
         "emoji": [
