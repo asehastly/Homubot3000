@@ -2,79 +2,59 @@ const Discord = module.require('discord.js');
 const { con, valkProcess, emoji, matchfound, notFound, react } = require('../global/config.js');
 
 
-exports.run = (homu, message, args) => {
-	
-	if(!args[0]) return message.channel.send("Please type the name of the valkyrie you're trying to see.").then(update => { update.delete(7000)});
-	var valkqueue, valkfound;
-
-	console.log(`${message.author.tag} as entered "${args.join(" ")}"\nwhich is useless because I'm only accepting "${args[0]}"`);
-	const valks = valkProcess(args[0]);
+exports.run = async (homu, message, args) => {
 	message.delete();
-	console.log(valks);
-	if(valks < 1) {
-		message.channel.send(notFound(args)).then(update => { update.delete(10000)});
-	} else if(valks.length > 1) {
-		var num = 0;
-		if(args.length > 1) {
-			console.log(`Length of args: ${args.length}`);
-			const valks2 = valkProcess(args[1]);
-			console.log(valks2);
-			if(valks2 < 1) return message.channel.send(notFound(args)).then(update => { update.delete(10000)});
-			console.log(valks2[0].Json);
-			message.channel.send(matchfound(valks2[0].Json)).catch(err => console.log(err));
-		} else {
-			const a = react(valks[0].Json);
-			const b = react(valks[1].Json);
-			var react1, react2;
-			
-			const filter = (reaction, user) => [a, b].includes(reaction.emoji.id) && user.id === message.author.id;
 
-			const embDupl = new Discord.RichEmbed()
-			.setColor('	#23272a')
-				.setAuthor('Valyrie Information', 'https://i.imgur.com/5ejjwD3.png')
-				.setTitle(`Which ${args[0]} are you looking for?`)
-				for(let i = 0; i < valks.length; i++) {
-					console.log(valks[i].Json);
-					num = num + 1;
-					valkfound = homu.valks[valks[i].Json];
-					embDupl.addField(emoji(valkfound.emoji[0].id), valkfound.valkName)
-				}
-				embDupl.setTimestamp()
-				embDupl.setFooter('King Homu™ Archives', 'https://i.imgur.com/SuxUzng.png');
-			message.channel.send(embDupl).then(async msg => {
-				/* msg.react(a).then(reaction => console.log(reaction.emoji.id))
-				msg.react(b).then(reaction => console.log(reaction.emoji.id))
-				console.log(`${react1}\n${react2}`) */
-				await msg.react(`${a}`).then(reaction => console.log(reaction.emoji.id));
-				await msg.react(`${b}`).then(reaction => console.log(reaction.emoji.id));
+	const filter = user => user.author.id === message.author.id;
 
-				msg.awaitReactions(filter, {
-					max: 1,
-					time: 30000,
-					error: ['Time']
-				}).then(collected => {
-					const reaction = collected.first();
+	const testEMB = new Discord.RichEmbed()
+		.setColor('#0099ff')
+		.setAuthor('Some name', 'https://i.imgur.com/wSTFkRM.png')
+		.setTitle('You have 30 seconds to choose 1 word:')
+		.setDescription('`Fish` | `Vegetable` | `Bird`')
 
-					switch(reaction.emoji.id) {
-						case a:
-							message.channel.send(matchfound(valks[0].Json)).catch(err => console.log(err));
-						break;
-						case b:
-							message.channel.send(matchfound(valks[1].Json)).catch(err => console.log(err));
-						break;
-					}
-				})
-			})
-			//message.react(`${a}`);
-			//message.react(`${b}`);
-			//console.log(`${a}`);
+	message.channel.send(testEMB).then(msg => { msg.delete(30000)});
+	message.channel.awaitMessages(filter, {
+		max: 1,
+		time: 30000,
+		error: ['Time']
+	}).then(async collected => {
+		if(collected.first().content === 'cancel') {
+			message.reply('Canceled').then(del =>{del.delete(10000)})
 		}
-	} else {
-		//console.log(valks);
-		message.channel.send(matchfound(valks[0].Json)).catch(err => console.log(err));
-		console.log(`------------------------------------------------\nUser has selected **something**\n------------------------------------------------`);
-	}
-	
+
+		let capture = collected.first().content;
+		let gif = '';
+		collected.delete();
+
+		switch(capture.toLowerCase()) {
+			case 'fish':
+				message.channel.send(resultEMB('https://i.imgur.com/4xGLp0d.gif'));
+			break;
+			case 'vegetable':
+				message.channel.send(resultEMB('https://i.imgur.com/z2qxcPU.gif'));
+			break;
+			case 'bird':
+				message.channel.send(resultEMB('https://i.imgur.com/ocfIWWq.gif'));
+			break;
+			default:
+				message.channel.send(resultEMB('https://i.imgur.com/0t9OsL7.gif'));
+			break;
+
+		}
+
+		function resultEMB(img) {
+			const resEMB = new Discord.RichEmbed()
+				.setColor('#0099ff')
+				.setTitle(`You have chosen *${capture}*`)
+				.setAuthor('I have a "GIF" for you...', 'https://i.imgur.com/SuxUzng.png', '')
+				.setImage(img)
+			return resEMB;
+		}
+
+	}).catch(err => {
+		return message.channel.send("Time's up. too late...").then(del => {del.delete(30000)});
+	})
 };
 
 exports.help = {
