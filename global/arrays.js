@@ -11,7 +11,7 @@ module.exports =  [
     {vCode:["RITA", "ROSSWEISSE"], Json:"valk09", sCode:["UR", "URDC", "PI", "PIISS", "AKA", "AKAMC"]},
     {vCode:["LILY", "LILIYA", "OLENYEVA"], Json:"valk10", sCode:["BB"]},
     {vCode:["ROZA", "ROZALIYA", "OLENYEVA"], Json:"valk11", sCode:["MC"]},
-    {vCode:["SEELE", "VOLLEREI"], Json:"valk12", sCode:["SP", "SPAM", "SPPL", "SN"]}
+    {vCode:["SEELE", "VOLLEREI"], Json:"valk12", sCode:["SP", "SPAM", "SPPL", "SN"]},
 ];
        
 
