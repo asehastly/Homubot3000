@@ -22,7 +22,7 @@ con.connect(err => {
 function bSuit(valk) {
     //console.log(valk.emoji);
     const out = [];
-    con.query(`SELECT * FROM emoji WHERE vCode = '${valk.vCode}' AND otype ='Battlesuit'`, (err, rows) => {
+    con.query(``, (err, rows) => {
         if(err) throw err;
         if(rows[0].emoType === 1) {
             for(let i = 0;i < rows.length; i++) {
@@ -56,21 +56,10 @@ function cSuit(valk) {
     return cMatch.map(suit => `${emoji(suit.ctype)} | ${emoji(suit.id)}${suit.name}`).join('\n') */
 }
 
-/* function emoji(id) {
-    con.query(`SELECT * FROM emoji WHERE id = '${id}'`, (err, rows) => {
-        if(err) throw err;
-        console.log(rows.length)
-
-        if(rows[0].emoType === 1) {
-            console.log(`<:${rows[0].vCode}_${rows[0].suitID}:${rows[0].id}>`);
-            return `something`;
-        } else {
-            console.log(`<a:${rows[0].vCode}_${rows[0].suitID}:${rows[0].id}>`)
-            return `something`
-        }
-    });
+function emoji(id) {
+    
     //return 'NAN'
-} */
+}
 
 module.exports = {
     token: process.env.TOKEN,
@@ -93,13 +82,104 @@ module.exports = {
         console.log(`Length of match: ${match.length}`)
         return match;
     },
-    /* emoji: function(id) {
-        console.log(homu.emojis.get(id))
-        //const emo = `${homu.emojis.get(id)}`;
-        return homu.emojis.get(id);
-        //return 'NAN'
-     }, */
-     ConvNum: function(id) {
+    emojiDB: function(vCode, stat) {
+		return new Promise((resolve, reject) => {
+			switch(stat) {
+                case 1: //mysql query to show all emoji
+                    con.query(`SELECT * FROM emoji WHERE vCode = '${vCode}'`, (err, rows) => {
+                        let psh = new Array;
+                        if(psh.length > 0) psh.splice(0,psh.length);
+                        for(let i = 0;i < rows.length;i++) {
+                            psh.push(out = (rows[i].type === 1) ? `<:${rows[i].vEmoji}:${rows[i].suitID}> ${rows[i].name}` : `<a:${rows[i].vEmoji}:${rows[i].suitID}> ${rows[i].name}`);
+                            valks.temp = psh;
+                        }
+                        return err ? reject(err) : resolve(psh);
+                    })
+                break;
+				case 2:
+                    con.query(`SELECT * FROM emoji WHERE vCode = '${vCode}' && otype = 'Battlesuit'`, (err, rows) => {
+                        let psh = new Array;
+                        psh.push({
+                            name: rows[0].vEmoji,
+                            id: rows[0].suitID
+                        });
+                        return err ? reject(err) : resolve(psh);
+                    })
+                break;
+                case 3: //function replacement for bSuit()
+                    con.query(`SELECT * FROM emoji WHERE vCode = '${vCode}' AND otype ='Battlesuit'`, (err, rows) => {
+                        let psh = new Array;
+                        for(let i = 0; i < rows.length; i++) {
+                            switch(rows[i].type) {
+                                case 1:
+                                    psh.push({
+                                        name: rows[i].name,
+                                        vEmoji: `<:${rows[i].vEmoji}:${rows[i].suitID}>`,
+                                        cEmoji: `<:${rows[i].cEmoji}:${rows[i].cID}>`
+                                    });
+                                break;
+                                case 0:
+                                    psh.push({
+                                        name: rows[i].name,
+                                        vEmoji: `<a:${rows[i].vEmoji}:${rows[i].suitID}>`,
+                                        cEmoji: `<:${rows[i].cEmoji}:${rows[i].cID}>`
+                                    });
+                                break;
+                            }
+                        }
+                        return err ? reject(err) : resolve(psh);
+                    })
+                break;
+                case 4: //function replacement for cSuit()
+                    con.query(`SELECT * FROM emoji WHERE vCode = '${vCode}' AND otype ='Outfit'`, (err, rows) => {
+                        let psh = new Array;
+                        if(!rows.length) {
+                            psh.push({
+                                name: "No Costume emoji",
+                                vEmoji: '<:noValk:657472633729843200>',
+                                cEmoji: '<:logo:642256192244154369>'
+                            });
+                        } else {
+                            for(let i = 0; i < rows.length; i++) {
+                                switch(rows[i].type) {
+                                    case 1:
+                                        psh.push({
+                                            name: rows[i].name,
+                                            vEmoji: `<:${rows[i].vEmoji}:${rows[i].suitID}>`,
+                                            cEmoji: `<:${rows[i].cEmoji}:${rows[i].cID}>`
+                                        });
+                                    break;
+                                    case 0:
+                                        psh.push({
+                                            name: rows[i].name,
+                                            vEmoji: `<a:${rows[i].vEmoji}:${rows[i].suitID}>`,
+                                            cEmoji: `<:${rows[i].cEmoji}:${rows[i].cID}>`
+                                        });
+                                    break;
+                                }
+                            }
+                        }
+                        return err ? reject(err) : resolve(psh);
+                    })
+                break;
+                case 5:
+                    con.query(`SELECT * FROM emoji WHERE suitID = '${vCode}'`, (err, rows) => {
+                        let psh = '';
+                        //console.log(rows.length)
+                        if(rows[0].type === 1) {
+                            psh = `<:${rows[0].vEmoji}:${rows[0].suitID}>`;
+                            console.log(psh);
+                        } else {
+                            psh = `<a:${rows[0].vEmoji}:${rows[0].suitID}>`;
+                            console.log(psh);
+                        }
+                        return err ? reject(err) : resolve(psh);
+                    });
+                break;
+            }
+		})
+	},
+    ConvNum: function(id) {
         var emo = id.match(/\d/g);
         emo = emo.join("")
         const temp = emo;
@@ -130,37 +210,13 @@ module.exports = {
     valkMap: function() {
         const map = valks.map()
     },
-    matchfound: (json) => {
-		//console.log(valkfound.emoji);
-        let valkfound = vJson[json];
-        //console.log(valkfound);
-		let pfp = valkfound.pfp;
-		const embTrue = new Discord.RichEmbed()
-		.setColor('	#23272a')
-			.setAuthor('Valyrie Information', 'https://i.imgur.com/5ejjwD3.png', valkfound.url)
-			.setTitle(valkfound.valkName)
-			.setDescription(`**Weapon type**:${valkfound.weap}\n**Age**:${valkfound.Age}\t\t\t\t**Birthday**:${valkfound.DOB}\n**Measurements**:${valkfound.Measurements}\n**Height**: ${valkfound.Height}\t\t\t**Weight**:${valkfound.Weight}`)
-			.setThumbnail(pfp[Math.floor(Math.random()*pfp.length)])
-			.addField('Battlesuit', `${bSuit(valkfound)}`, true)
-			.addField('Outfits', `${cSuit(valkfound)}`, true)
-			.addField('Bio', valkfound.vBio)
-			.setTimestamp()
-            .setFooter('King Homu™ Archives', 'https://i.imgur.com/SuxUzng.png');
-		return embTrue;
-	},
-
 	react: (id) => {
-		return homu.valks[id].emoji[0].id;
+        console.log(id);
+        let json = vJson[id];
+        console.log(json.emoji[0].id)
+		return json.emoji[0].id;
 	},
-	notFound: (input) => {
-		let concat = input.join(" ");
-		const embFalse = new Discord.RichEmbed()
-		.setColor('	#23272a')
-			.setAuthor('Valyrie Information', 'https://i.imgur.com/5ejjwD3.png')
-			.setTitle(`${concat} was not on the database`)
-			.setDescription("Are you sure you are looking for a **playable** valkyrie?")
-			.setTimestamp()
-			.setFooter('King Homu™ Archives', 'https://i.imgur.com/SuxUzng.png');
-		return embFalse;
-	}
+    searchAll: (input) => {
+        var psh = [];
+    }
 }
