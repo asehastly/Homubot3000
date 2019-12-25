@@ -5,3 +5,17 @@ module.exports = {
 		//code here
 	},
 };
+
+
+Link reminders:
+-King Homu Icon
+https://i.imgur.com/SuxUzng.png
+
+-No Valk Icon
+https://i.imgur.com/5ejjwD3.png
+
+-Member ID Icon
+https://i.imgur.com/1K2pdQH.png
+
+-DC Armada Icon
+https://i.imgur.com/sID7rBB.png
