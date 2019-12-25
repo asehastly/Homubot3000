@@ -11,5 +11,7 @@
         }
     ],
     "explorer.sortOrder": "modified",
-    "window.zoomLevel": -1
+    "window.zoomLevel": -1,
+    "printcode.paperSize": "a4Land",
+    "printcode.fontSize": 8
 }
