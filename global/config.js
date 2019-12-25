@@ -176,6 +176,28 @@ module.exports = {
                         return err ? reject(err) : resolve(psh);
                     });
                 break;
+                case 6: //function replacement for bSuit()
+                    con.query(`SELECT * FROM emoji WHERE vCode = '${vCode}' AND otype ='Battlesuit'`, (err, rows) => {
+                        let psh = new Array;
+                        for(let i = 0; i < rows.length; i++) {
+                            switch(rows[i].type) {
+                                case 1:
+                                    psh.push({
+                                        name: rows[i].name, vEmoji: rows[i].vEmoji, id: rows[i].suitID,
+                                        emoTag: `<:${rows[i].vEmoji}:${rows[i].suitID}>`
+                                    });
+                                break;
+                                case 0:
+                                    psh.push({
+                                        name: rows[i].name, vEmoji: rows[i].vEmoji, id: rows[i].suitID,
+                                        emoTag: `<a:${rows[i].vEmoji}:${rows[i].suitID}>`
+                                    });
+                                break;
+                            }
+                        }
+                        return err ? reject(err) : resolve(psh);
+                    })
+                break;
             }
 		})
 	},
@@ -218,5 +240,13 @@ module.exports = {
 	},
     searchAll: (input) => {
         var psh = [];
+    },
+    icon: {
+        timer: 'https://i.imgur.com/Z1dOX1v.png',
+        homu: 'https://i.imgur.com/SuxUzng.png',
+        valk: 'https://i.imgur.com/5ejjwD3.png',
+        weap: 'https://i.imgur.com/LAmwiBg.png',
+        boss: 'https://i.imgur.com/QrJKwNl.png',
+        dc: 'https://i.imgur.com/sID7rBB.png'        
     }
 }
