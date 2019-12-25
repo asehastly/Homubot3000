@@ -20,7 +20,7 @@ exports.run = async (homu, message, args) => {
             let minutes = Math.floor(totalSeconds / 60);
             let seconds = totalSeconds % 60;
 
-            message.channel.send(`I am running at\n${days} days\n${hours} hrs.\n${minutes} min.\n${seconds} sec.`).then(update => { update.delete(15000)});
+            message.channel.send(`I am running at\`${days}\` days | \`${hours}\` hrs. \`${minutes}\` min. \`${seconds}\` sec.`).then(update => { update.delete(15000)});
         break;
         case "delete":
             args.shift();
